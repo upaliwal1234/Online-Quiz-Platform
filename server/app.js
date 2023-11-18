@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 })
 
 app.get('/quizes', async (req, res) => {
-    const quizzes = await Quiz.find({});
+    const quizzes = await Quiz.find().populate('questions');
     res.send(quizzes);
 })
 
