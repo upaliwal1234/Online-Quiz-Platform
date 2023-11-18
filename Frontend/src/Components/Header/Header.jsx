@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { tokenCheck } from '../../helperToken';
+import {useState, useEffect} from 'react'
+import { useNavigate } from 'react-router-dom';
 
 export default function Header() {
+
   return (
     <header className="shadow sticky z-50 top-0">
       <nav style={{ backgroundColor: '#e70e02' }} className="border-black-200 px-4 lg:px-6 py-2.5">
@@ -85,6 +89,19 @@ export default function Header() {
                 >
                  Join Quiz
                 </NavLink>
+                </li>
+                <li>
+                <NavLink
+                  to="/QuestionDisplay"
+                  className={({ isActive }) =>
+                    `block py-2 pr-4 pl-3 duration-200 ${
+                      isActive ? 'text-yellow-700' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
+                  }
+                >
+                 QuestionDisplay
+                </NavLink>
+                
               </li>
             </ul>
           </div>

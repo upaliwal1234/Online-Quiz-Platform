@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
-        <footer style={{ backgroundColor: '#e70e02' }} className=" border-y">
+        <footer style={{ backgroundColor: '#e70e02' }} className=" footer bg-red-600 text-white py-6 w-full">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
