@@ -2,18 +2,63 @@ import React from 'react'
 import { tokenCheck } from '../../helperToken';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function CreateQuiz() {
   const navigate = useNavigate()
-  useEffect(() => {
-    let response = tokenCheck();
-    if (!response) {
-      navigate('/Login')
+  // useEffect(() => {
+  //   let response = tokenCheck();
+  //   if (!response) {
+  //     navigate('/Login')
+  //   }
+  //   else {
+  //     navigate('/CreateQuiz');
+  //   }
+  // }, [])
+
+  const alphabetSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  const numberSet = "0123456789";
+
+  const getRandomData = (dataSet) => {
+    return dataSet[Math.floor(Math.random() * dataSet.length)]
+  }
+
+  const generateQuizCode = (code = "") => {
+    code += getRandomData(alphabetSet);
+    code += getRandomData(numberSet);
+    if (code.length < 5) {
+      return generateQuizCode(code)
     }
-    else {
-      navigate('/CreateQuiz');
+    return code;
+  }
+  const [title, setTitle] = useState('');
+  const [time, setTime] = useState();
+  const quizCode = generateQuizCode();
+
+  const submitData = async () => {
+    try {
+      const response = await axios.post('http://localhost:5500/Quiz',
+        {
+          title,
+          time,
+          quizCode
+        });
+      if (response && response.data) {
+        console.log(response);
+        navigate('/addQuestion')
+      }
+    } catch (error) {
+      console.error(error);
     }
-  }, [])
+  }
+
+  const handleTitleChange = (event) => {
+    setTitle(event.target.value);
+  }
+  const handleTimeChange = (event) => {
+    setTime(event.target.value);
+  }
+
 
   return (
     <div className='min-h-screen'>
@@ -23,50 +68,46 @@ function CreateQuiz() {
         </div>
       </header>
       <main>
-        <div className="">
-          <form className='border mt-1' >
-            <div className='mx-auto  max-w-10xl py-6 sm:px-6 lg:px-8 text-left flex justify-center gap-4'>
-              <div className="w-1/3 py-20 border border-black/30 rounded-lg p-4 flex flex-col gap-4">
-                <div>
-                  <label
-                    className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    for="name"
-                  >
-                    Quiz Title
-                  </label>
-                  <input
-                    className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="text"
-                    placeholder="Enter quiz title"
-                    id="name"
-                  />
-                </div>
-                <div>
-                  <label
-                    className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-                    for="time"
-                  >Time</label>
-                  <input
-                    className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    type="number"
-                    id="time"
-                    placeholder='Enter Time in Minutes'
-                  />
-                </div>
-
-              </div>
-              <div className='w-2/3 py-2 border border-black/30 rounded-lg p-4 flex flex-col gap-4' >
-                <h1 className='text-center text-2xl'>Add Questions</h1>
-                <div></div>
-              </div>
+        <form className='mx-auto py-6 sm:px-6 lg:px-8 text-left flex justify-center mt-10'>
+          <div className="sm:w-2/5 py-20 border border-black/30 rounded-lg p-4 flex flex-col gap-4">
+            <div>
+              <label
+                className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                htmlFor="title"
+              >
+                Quiz Title
+              </label>
+              <input
+                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="text"
+                placeholder="Enter quiz title"
+                id="title" required
+                name='title'
+                onChange={handleTitleChange}
+              />
             </div>
-            <div className='flex justify-end px-6'>
-              <button type="button" className="m-1 py-3 px-4 w-32 items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-                Save
+            <div>
+              <label
+                className="text-lg font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                htmlFor="time"
+              >Time</label>
+              <input
+                className="flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                type="number"
+                id="time"
+                placeholder='Enter Time in Minutes'
+                min={1} required
+                name='time'
+                onChange={handleTimeChange}
+              />
+            </div>
+            <div className='flex justify-center'>
+              <button onClick={submitData} type="submit" className="my-2 py-3 px-4 w-full items-center gap-x-2 text-md font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                Add Questions
               </button>
             </div>
-          </form>
-        </div>
+          </div>
+        </form>
       </main >
     </div >
   )
