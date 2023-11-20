@@ -3,17 +3,19 @@ const app = express()
 const Quiz = require('./model/Quiz')
 const mongoose = require('mongoose')
 const Question = require('./model/Question')
-const User=require('./model/User')
-const bcrypt=require('bcryptjs')
-const jwt=require('jsonwebtoken')
-const cookieParser=require('cookie-parser')
+const User = require('./model/User')
+const bcrypt = require('bcryptjs')
+const jwt = require('jsonwebtoken')
+const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser');
-const cors=require('cors')
-const router=require ('./routes/loginSignupRoutes')
+const cors = require('cors')
+const loginSignupRoutes = require('./routes/loginSignupRoutes')
+const quizRoutes = require('./routes/Quiz')
 
 app.use(bodyParser.json());
 app.use(cors())
-app.use(router);
+app.use(loginSignupRoutes);
+app.use(quizRoutes);
 
 mongoose.connect('mongodb://127.0.0.1:27017/Online-Quiz')
     .then(() => { console.log('DB connected'); })
