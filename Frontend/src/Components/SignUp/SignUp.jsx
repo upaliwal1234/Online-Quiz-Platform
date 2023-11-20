@@ -22,7 +22,7 @@ function SignUp() {
         confirmPassword
       });
   
-      if (response && response.data && response.data.email) {
+      if (response && response.data) {
         console.log("Hello",response);
         navigate('/Login');
       }

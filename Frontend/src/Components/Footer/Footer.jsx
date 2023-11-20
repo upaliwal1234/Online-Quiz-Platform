@@ -34,7 +34,7 @@ export default function Footer() {
                             <ul className="text-gray-500 font-medium">
                                 <li className="mb-4 text-white">
                                     <a
-                                        href="https://github.com/hiteshchoudhary"
+                                        href=""
                                         className="hover:text-yellow-700"
                                         target="_blank"
                                         rel="noreferrer"

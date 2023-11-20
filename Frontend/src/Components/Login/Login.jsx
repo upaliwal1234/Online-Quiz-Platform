@@ -42,7 +42,7 @@ function Login() {
     
           if(tokenString)
           {
-            //console.log("Decoded Token ",decodedToken)
+            console.log("Decoded Token ",decodedToken)
             window.localStorage.setItem('myToken', tokenString)
             navigate('/');
           }
@@ -50,6 +50,7 @@ function Login() {
       } 
       catch (error) 
       {
+        console.log("Wrong password");
         toast.error("Wrong Password");
         console.error('Error during signup:', error);
       }

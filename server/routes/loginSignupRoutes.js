@@ -12,12 +12,14 @@ router.post('/signUp',async (req, res)=>{
     //check if all data exists
     if(!(name && email && password && confirmPassword))
     {
+        console.log("All Fields Are Necessary")
         return res.status(400).send("All Fields are necessary");
     }
     //check if user already exists
     const existingUser=await User.findOne({email});
     if(existingUser)
     {
+        console.log("Already exists")
         return res.status(401).send("User With This Name Already Exists");
     }
     //encrypt the password
@@ -41,6 +43,7 @@ router.post('/login',async (req,res)=>{
         //validation
         if(!(email && password))
         {
+            console.log("All Fields Are Necessary")
             return res.status(400).send("All details are necessary")
         }
         //find user in db
@@ -48,6 +51,7 @@ router.post('/login',async (req,res)=>{
         //if user is not there
         if(!user)
         {
+            console.log("Not exists")
             return res.status(401).send("User does not exists")
         }
         //match the password
@@ -71,6 +75,7 @@ router.post('/login',async (req,res)=>{
         }
         else
         {
+            console.log("Password is incorrect");
             return res.status(400).send("Password is incorrect");
         }
     }

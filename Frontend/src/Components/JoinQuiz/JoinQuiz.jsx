@@ -12,7 +12,7 @@ function JoinQuiz() {
     }
     else
     {
-      navigate('/CreateQuiz');
+      navigate('/JoinQuiz');
     }
 }, [])
   return (
