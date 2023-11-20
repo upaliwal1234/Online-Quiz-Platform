@@ -23,6 +23,7 @@ function SignUp() {
       });
   
       if (response && response.data && response.data.email) {
+        console.log("Hello",response);
         navigate('/Login');
       }
     } catch (error)

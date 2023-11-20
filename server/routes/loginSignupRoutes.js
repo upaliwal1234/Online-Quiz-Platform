@@ -5,9 +5,7 @@ const bcrypt=require('bcryptjs')
 const jwt=require('jsonwebtoken')
 const cookieParser=require('cookie-parser')
 const bodyParser = require('body-parser');
-const cors=require('cors')
-
-
+const cors=require('cors')//to handle the different domains
 router.post('/signUp',async (req, res)=>{
     //get all data from body
     const {name,email,password,confirmPassword}=req.body;
