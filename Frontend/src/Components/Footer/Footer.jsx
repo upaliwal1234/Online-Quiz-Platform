@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
     return (
-        <footer style={{ backgroundColor: '#e70e02' }} className=" footer bg-red-600 text-white py-6 w-full">
+        <footer className=" footer bg-red-500 text-white py-6 w-full">
             <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
                 <div className="md:flex md:justify-between">
                     <div className="mb-6 md:mb-0">
@@ -73,7 +73,7 @@ export default function Footer() {
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
-                                style= {{color:"white"}}
+                                style={{ color: "white" }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 8 19"
@@ -90,7 +90,7 @@ export default function Footer() {
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
-                                style= {{color:"white"}}
+                                style={{ color: "white" }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 21 16"
@@ -103,7 +103,7 @@ export default function Footer() {
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
-                                style= {{color:"white"}}
+                                style={{ color: "white" }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 20 17"
@@ -120,7 +120,7 @@ export default function Footer() {
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
-                                style= {{color:"white"}}
+                                style={{ color: "white" }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
@@ -137,7 +137,7 @@ export default function Footer() {
                             <svg
                                 className="w-4 h-4"
                                 aria-hidden="true"
-                                style= {{color:"white"}}
+                                style={{ color: "white" }}
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="currentColor"
                                 viewBox="0 0 20 20"
