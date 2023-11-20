@@ -10,10 +10,8 @@ export default function Header() {
     <header className="shadow sticky z-50 top-0">
       <nav className="border-black-200 px-4 lg:px-6 bg-red-500 py-2.5">
         <div className="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-          <Link to="/" className="flex items-center">
-            <img
-              alt="Logo"
-            />
+          <Link to="/" className="flex items-center text-white">
+            Quizify
           </Link>
           <div className="flex items-center lg:order-2">
             <NavLink
