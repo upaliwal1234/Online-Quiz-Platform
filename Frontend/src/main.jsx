@@ -11,7 +11,7 @@ import CreateQuiz from './Components/CreateQuiz/CreateQuiz.jsx'
 import JoinQuiz from './Components/JoinQuiz/JoinQuiz.jsx'
 import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/SignUp/SignUp.jsx'
-//import QuestionDisplay from './Components/QuestionDisplay/QuestionDisplay.jsx'
+import QuestionDisplay from './Components/QuestionDisplay/QuestionDisplay.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
