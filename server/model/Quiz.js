@@ -8,7 +8,6 @@ const quizSchema = new mongoose.Schema({
     },
     ttlQues: {
         type: Number,
-        required: true
     },
     time: {
         type: Number,
@@ -18,9 +17,11 @@ const quizSchema = new mongoose.Schema({
         {
             type: mongoose.Types.ObjectId,
             ref: "Question",
-            required: true
         }
-    ]
+    ],
+    quizCode: {
+        type: String
+    }
 })
 
 const Quiz = mongoose.model('Quiz', quizSchema);
