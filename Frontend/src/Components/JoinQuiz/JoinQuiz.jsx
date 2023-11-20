@@ -3,18 +3,16 @@ import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
 
 function JoinQuiz() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   useEffect(() => {
     let response = tokenCheck();
-    if(!response)
-    {
+    if (!response) {
       navigate('/Login')
     }
-    else
-    {
-      navigate('/CreateQuiz');
+    else {
+      navigate('/join');
     }
-}, [])
+  }, [])
   return (
     <div>JoinQuiz</div>
   )
