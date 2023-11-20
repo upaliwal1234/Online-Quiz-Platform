@@ -20,7 +20,11 @@ const quizSchema = new mongoose.Schema({
             ref: "Question",
             required: true
         }
-    ]
+    ],
+    quizCode:{
+        required:true,
+        type:Number
+    }
 })
 
 const Quiz = mongoose.model('Quiz', quizSchema);

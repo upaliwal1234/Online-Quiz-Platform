@@ -32,3 +32,11 @@ router.get('/Quiz/:id',async (req, res)=>{
     return res.status(200).json(foundQuiz);
 })
 
+router.get('/Quiz/:quizCode',async(req,res)=>{
+    const {quizCode}=req.params;
+    const response=Quiz.findById(quizCode)
+    if(response)
+    {
+        return res.status(200).json(response);
+    }
+})

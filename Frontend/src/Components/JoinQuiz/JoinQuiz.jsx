@@ -1,6 +1,8 @@
 import React, {useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
+import axios from 'axios';
+import { ToastContainer, toast } from 'react-toastify';
 
 function JoinQuiz() {
   const navigate = useNavigate()
@@ -14,11 +16,17 @@ function JoinQuiz() {
     }
   }, [])
   const [quizCode, setQuizCode] = useState('');
-  const [joinedQuiz, setJoinedQuiz] = useState('');
   
-  const handleJoinQuiz = () => {
-    // For demonstration, let's assume the quiz code is valid and set the joined quiz
-    setJoinedQuiz(quizCode);
+  const handleJoinQuiz = async() => {
+    const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
+        if(response)
+        {
+          navigate('/Quiz')
+        }
+        else
+        {
+          toast.error("Wrong Quiz Code");
+        }
   };
   return (
     <>
@@ -40,17 +48,10 @@ function JoinQuiz() {
           Join Quiz
         </button>
       </div>
-      {joinedQuiz && (
-        <div className="bg-white rounded-lg shadow-lg p-6">
-          <h2 className="text-xl font-bold mb-4">Joined Quiz</h2>
-          <p className="text-lg leading-relaxed">
-            You have successfully joined the quiz with code: {joinedQuiz}
-          </p>
-        </div>
-      )}
+      
     </div>
   </div>
-  
+  <ToastContainer /> {/* Add this line to render the ToastContainer */}
     </>
   )
 }
