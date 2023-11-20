@@ -19,18 +19,11 @@ const router = createBrowserRouter(
       <Route path='' element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
-<<<<<<< HEAD
-      <Route path='CreateQuiz' element={<CreateQuiz/>}/>
-      <Route path='JoinQuiz' element={<JoinQuiz/>}/>
-      <Route path='Login' element={<Login/>}/>
-      <Route path='SignUp' element={<SignUp/>}/>
-=======
       <Route path='CreateQuiz' element={<CreateQuiz />} />
-      <Route path='hello' element={<JoinQuiz />} />
+      <Route path='JoinQuiz' element={<JoinQuiz />} />
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
       <Route path='QuestionDisplay' element={<QuestionDisplay />} />
->>>>>>> a93b332 (test)
     </Route>
   )
 )

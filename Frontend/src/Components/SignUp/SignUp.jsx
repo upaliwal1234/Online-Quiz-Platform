@@ -21,15 +21,9 @@ function SignUp() {
         password,
         confirmPassword
       });
-<<<<<<< HEAD
-  
-      if (response && response.data) {
-        console.log("Hello",response);
-=======
 
       if (response && response.data && response.data.email) {
         console.log("Hello", response);
->>>>>>> a93b332 (test)
         navigate('/Login');
       }
     } catch (error) {

@@ -30,31 +30,6 @@ function Login() {
           email,
           password
         });
-<<<<<<< HEAD
-        if (response && response.data) 
-        {
-          const token=response.data.token;
-          const decodedToken = parseJwt(token);
-          
-          const tokenString = JSON.stringify({
-            id: decodedToken.id,
-            email: decodedToken.email
-          });   
-    
-          if(tokenString)
-          {
-            console.log("Decoded Token ",decodedToken)
-            window.localStorage.setItem('myToken', tokenString)
-            navigate('/');
-          }
-        }
-      } 
-      catch (error) 
-      {
-        console.log("Wrong password");
-        toast.error("Wrong Password");
-        console.error('Error during signup:', error);
-=======
       if (response && response.data) {
         const token = response.data.token;
         const decodedToken = parseJwt(token);
@@ -69,7 +44,6 @@ function Login() {
           window.localStorage.setItem('myToken', tokenString)
           navigate('/');
         }
->>>>>>> a93b332 (test)
       }
     }
     catch (error) {

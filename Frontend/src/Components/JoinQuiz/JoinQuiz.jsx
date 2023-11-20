@@ -9,14 +9,8 @@ function JoinQuiz() {
     if (!response) {
       navigate('/Login')
     }
-<<<<<<< HEAD
-    else
-    {
-      navigate('/JoinQuiz');
-=======
     else {
-      navigate('/join');
->>>>>>> a93b332 (test)
+      navigate('/CreateQuiz');
     }
   }, [])
   return (
