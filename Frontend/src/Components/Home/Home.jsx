@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
+import { Link } from 'react-router-dom';
 function Home() {
   // const navigate = useNavigate();
   // const [email, setEmail] = useState('')
@@ -29,7 +30,7 @@ function Home() {
                 Ready to challenge yourself? Join one of our quizzes and test your knowledge on various topics.
               </p>
               <div className="mt-6 sm:my-10">
-                <a href="/quizzes" className="bg-red-600 text-white hover:bg-red-300 font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out">Join Quiz</a>
+                <Link to="/JoinQuiz" className="bg-red-600 text-white hover:bg-red-300 font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out">Join Quiz</Link>
               </div>
             </div>
 
@@ -39,7 +40,7 @@ function Home() {
                 Feeling creative? Design your own quiz and share it with the world. Let others enjoy your quiz-making skills!
               </p>
               <div className="mt-6 sm:my-10">
-                <a href="/create" className="bg-red-600 text-white hover:bg-red-300 font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out">Create Quiz</a>
+                <Link to="/CreateQuiz" className="bg-red-600 text-white hover:bg-red-300 font-bold py-3 px-6 rounded-md transition duration-300 ease-in-out">Create Quiz</Link>
               </div>
             </div>
           </div>
