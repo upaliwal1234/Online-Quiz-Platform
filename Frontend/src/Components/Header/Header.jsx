@@ -42,8 +42,8 @@ export default function Header() {
                 <NavLink
                   to="/"
                   className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-yellow-700' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
+                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
                   }
                 >
                   Home
@@ -53,8 +53,8 @@ export default function Header() {
                 <NavLink
                   to="/About"
                   className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-yellow-700' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
+                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
                   }
                 >
                   About
@@ -64,8 +64,8 @@ export default function Header() {
                 <NavLink
                   to="/CreateQuiz"
                   className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-yellow-700' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
+                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
                   }
                 >
                   Create Quiz
@@ -75,25 +75,14 @@ export default function Header() {
                 <NavLink
                   to="/JoinQuiz"
                   className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-yellow-700' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
+                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
                   }
                 >
                   Join Quiz
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/QuestionDisplay"
-                  className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-yellow-700' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-orange-700 lg:p-0`
-                  }
-                >
-                  QuestionDisplay
-                </NavLink>
 
-              </li>
             </ul>
           </div>
         </div>

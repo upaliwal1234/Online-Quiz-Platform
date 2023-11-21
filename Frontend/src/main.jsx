@@ -11,8 +11,8 @@ import CreateQuiz from './Components/CreateQuiz/CreateQuiz.jsx'
 import JoinQuiz from './Components/JoinQuiz/JoinQuiz.jsx'
 import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/SignUp/SignUp.jsx'
-import QuestionDisplay from './Components/QuestionDisplay/QuestionDisplay.jsx'
 import AddQuestion from './Components/CreateQuiz/AddQuestion.jsx'
+import QuizDisplay from './Components/QuizDisplay/QuizDisplay.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,8 +25,7 @@ const router = createBrowserRouter(
       <Route path='JoinQuiz' element={<JoinQuiz />} />
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
-      {/* <Route path='addDyn' element={<AddDynamicQuestions />} /> */}
-      <Route path='QuestionDisplay' element={<QuestionDisplay />} />
+      <Route path='QuizDisplay' element={<QuizDisplay />} />
     </Route>
   )
 )

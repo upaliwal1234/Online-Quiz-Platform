@@ -45,7 +45,7 @@ function CreateQuiz() {
         });
       if (response && response.data) {
         console.log(response);
-        navigate('/addQuestion')
+        navigate(`/${quizCode}/addQuestion`)
       }
     } catch (error) {
       console.error(error);
