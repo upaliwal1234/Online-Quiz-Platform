@@ -36,3 +36,5 @@ router.get('/Quiz/:quizCode', async (req, res) => {
         return res.status(200).json(response);
     }
 })
+
+module.exports = router
