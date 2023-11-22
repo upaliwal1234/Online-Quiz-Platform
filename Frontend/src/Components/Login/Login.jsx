@@ -6,7 +6,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 function Login() {
- 
+
   const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -24,8 +24,8 @@ function Login() {
       return null;
     }
   };
-  const submitData = async () => {
-    event.preventDefault(); 
+  const submitData = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post('http://localhost:5500/login',
         {

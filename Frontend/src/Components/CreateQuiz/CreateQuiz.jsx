@@ -2,6 +2,7 @@ import React from 'react'
 import { tokenCheck } from '../../helperToken';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios';
 
 function CreateQuiz() {
@@ -47,14 +48,10 @@ function CreateQuiz() {
       if (response && response.data) {
         const createdQuizCode = response.data.quizCode;
         navigate(`/CreateQuiz/${createdQuizCode}/addQuestion`)
-        if (response && response.data) {
-          console.log(response);
-          // navigate('/about');
-          navigate(`/CreateQuiz/${quizCode}/addQuestion`)
-        }
       }
     }
     catch (error) {
+      toast.error("Please Enter Quiz Title & Time");
       console.error(error);
     }
   }
@@ -116,6 +113,7 @@ function CreateQuiz() {
           </div>
         </form>
       </main >
+      <ToastContainer />
     </div >
   )
 }

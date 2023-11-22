@@ -12,6 +12,8 @@ import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/SignUp/SignUp.jsx'
 import AddQuestion from './Components/CreateQuiz/AddQuestion.jsx'
 import QuizDisplay from './Components/QuizDisplay/QuizDisplay.jsx'
+import Questions from './Components/CreateQuiz/Questions.jsx'
+import NewQuestion from './Components/CreateQuiz/NewQuestion.jsx'
 import UserProfile from './Components/userProfile/UserProfile.jsx'
 import LogOut from './Components/LogOut/LogOut.jsx'
 
@@ -22,13 +24,16 @@ const router = createBrowserRouter(
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
       <Route path='CreateQuiz' element={<CreateQuiz />} />
-      <Route path='/CreateQuiz/:createdQuizCode/addQuestion' element={<AddQuestion />} />
+      {/* <Route path='/CreateQuiz/:createdQuizCode/addQuestion' element={<AddQuestion />} /> */}
+      <Route path='/CreateQuiz/:quizCode/addQuestion' element={<Questions />} />
+      <Route path='/CreateQuiz/:quizCode/addQuestion/new' element={<NewQuestion />} />
+
       <Route path='JoinQuiz' element={<JoinQuiz />} />
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
       <Route path='QuizDisplay' element={<QuizDisplay />} />
-      <Route path='UserProfile'element={<UserProfile/>}/>
-      <Route path='LogOut'element={<LogOut/>}/>
+      <Route path='UserProfile' element={<UserProfile />} />
+      <Route path='LogOut' element={<LogOut />} />
     </Route>
   )
 )

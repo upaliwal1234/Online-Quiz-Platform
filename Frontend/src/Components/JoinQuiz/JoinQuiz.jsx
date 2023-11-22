@@ -16,22 +16,20 @@ function JoinQuiz() {
     }
   }, [])
   const [quizCode, setQuizCode] = useState('');
-  
-  const handleJoinQuiz = async() => {
+
+  const handleJoinQuiz = async () => {
     const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
-        if(response)
-        {
-          navigate(`/QuizDisplay/${response.id}`)
-        }
-        else
-        {
-          toast.error("Wrong Quiz Code");
-        }
+    if (response) {
+      navigate(`/QuizDisplay/${response.id}`)
+    }
+    else {
+      toast.error("Wrong Quiz Code");
+    }
   };
   return (
     <>
-      <div className="bg-red-600 h-96">
-        <div className="container mx-auto py-12">
+      <div className="bg-red-600 h-96 min-h-screen flex justify-center">
+        <div className="container mx-auto py-12 my-40">
           <h1 className="text-3xl font-bold text-center mb-8 text-white">Join a Quiz</h1>
 
           <div className="flex justify-center mb-6">

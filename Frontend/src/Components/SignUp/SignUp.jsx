@@ -13,8 +13,8 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('')
 
 
-  const submitData = async () => {
-    event.preventDefault(); 
+  const submitData = async (event) => {
+    event.preventDefault();
     try {
       const response = await axios.post('http://localhost:5500/signUp', {
         name,
