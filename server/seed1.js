@@ -1,23 +1,27 @@
-const mongoose = require('mongoose')
-const Quiz = require('./model/Quiz')
+const mongoose = require('mongoose');
+const Quiz = require('./model/Quiz');
 
 mongoose.connect('mongodb://127.0.0.1:27017/Online-Quiz')
     .then(() => { console.log('DB connected'); })
-    .catch((err) => { console.log('error in connecting to DB', err); })
+    .catch((err) => { console.log('Error in connecting to DB', err); });
 
 const dummyQuiz = [
     {
         title: 'Java',
         ttlQues: 4,
         time: 10,
-        questions: ['6548f26e7b00412cc3b6f1bf', '6548f26e7b00412cc3b6f1c0', '6548f26e7b00412cc3b6f1c1', '6548f26e7b00412cc3b6f1c2']
+        quizCode: 'A1S2D3',
+        questions: ['655e0ab3e714a98a87a2cc0d', '655e0ab3e714a98a87a2cc0e', '655e0ab3e714a98a87a2cc0f', '655e0ab3e714a98a87a2cc10']
     }
-]
-
+];
 
 async function seed1() {
-    await Quiz.insertMany(dummyQuiz);
-    console.log('data seeded successfully');
+    try {
+        await Quiz.insertMany(dummyQuiz);
+        console.log('Data seeded successfully');
+    } catch (err) {
+        console.error('Error seeding data:', err);
+    }
 }
 
 seed1();

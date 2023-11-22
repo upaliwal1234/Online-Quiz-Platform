@@ -11,11 +11,14 @@ const bodyParser = require('body-parser');
 const cors = require('cors')
 const loginSignupRoutes = require('./routes/loginSignupRoutes')
 const quizRoutes = require('./routes/Quiz')
+const userRoutes =require('./routes/user')
 
 app.use(bodyParser.json());
 app.use(cors())
 app.use(loginSignupRoutes);
 app.use(quizRoutes);
+app.use(userRoutes);
+
 
 mongoose.connect('mongodb://127.0.0.1:27017/Online-Quiz')
     .then(() => { console.log('DB connected'); })

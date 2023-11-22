@@ -12,7 +12,7 @@ import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/SignUp/SignUp.jsx'
 import AddQuestion from './Components/CreateQuiz/AddQuestion.jsx'
 import QuizDisplay from './Components/QuizDisplay/QuizDisplay.jsx'
-import StudentProfile from './Components/StudentProfile/StudentProfile.jsx'
+import UserProfile from './Components/userProfile/UserProfile.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,7 +26,7 @@ const router = createBrowserRouter(
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
       <Route path='QuizDisplay' element={<QuizDisplay />} />
-      <Route path='StudentProfile'element={<StudentProfile/>}/>
+      <Route path='UserProfile'element={<UserProfile/>}/>
     </Route>
   )
 )
