@@ -45,10 +45,16 @@ function CreateQuiz() {
           time,
           quizCode
         });
+<<<<<<< HEAD
       if (response && response.data) 
       {
         const createdQuizCode = response.data.quizCode;
         navigate(`/CreateQuiz/${createdQuizCode}/addQuestion`)
+=======
+      if (response && response.data) {
+        console.log(response);
+        navigate(`/${quizCode}/addQuestion`)
+>>>>>>> 552dcedbf5129b8e850b26c0d5eeaf49326d5be3
       }
     } 
     catch (error) 
