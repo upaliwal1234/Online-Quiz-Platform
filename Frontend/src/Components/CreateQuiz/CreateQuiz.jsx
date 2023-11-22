@@ -44,19 +44,17 @@ function CreateQuiz() {
           time,
           quizCode
         });
-<<<<<<< HEAD
       if (response && response.data) {
         const createdQuizCode = response.data.quizCode;
         navigate(`/CreateQuiz/${createdQuizCode}/addQuestion`)
-=======
-      if (response && response.data) {
-        console.log(response);
-        // navigate('/about');
-        navigate(`/CreateQuiz/${quizCode}/addQuestion`)
+        if (response && response.data) {
+          console.log(response);
+          // navigate('/about');
+          navigate(`/CreateQuiz/${quizCode}/addQuestion`)
+        }
       }
     }
-    catch (error)
-    {
+    catch (error) {
       console.error(error);
     }
   }
