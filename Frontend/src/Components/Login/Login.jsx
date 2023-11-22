@@ -31,14 +31,15 @@ function Login() {
           password
         });
       if (response && response.data) {
+        //get the token from the response
         const token = response.data.token;
+        //parse that token 
         const decodedToken = parseJwt(token);
 
         const tokenString = JSON.stringify({
           id: decodedToken.id,
           email: decodedToken.email
         });
-
         if (tokenString) {
           //console.log("Decoded Token ",decodedToken)
           window.localStorage.setItem('myToken', tokenString)
@@ -57,7 +58,7 @@ function Login() {
         <div className="flex flex-col items-center justify-center px-2  mx-auto my-auto  md:h-screen lg:py-0">
           <div className="bg-red-600 w-full rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 ">
             <div className="p-6 space-y-4 md:space-y-6 sm:p-8">
-              <h1 className="text-xl font-bold leading-tight tracking-tight text-white md:text-2xl ">
+              <h1 className="text-xl text-center font-bold leading-tight tracking-tight text-white md:text-2xl ">
                 Sign in to your account
               </h1>
               <form className="space-y-4 md:space-y-6" action="">

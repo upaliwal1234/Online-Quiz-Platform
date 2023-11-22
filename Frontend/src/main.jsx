@@ -1,6 +1,5 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
 import './index.css'
 import Home from './Components/Home/Home'
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
@@ -11,22 +10,22 @@ import CreateQuiz from './Components/CreateQuiz/CreateQuiz.jsx'
 import JoinQuiz from './Components/JoinQuiz/JoinQuiz.jsx'
 import Login from './Components/Login/Login.jsx'
 import SignUp from './Components/SignUp/SignUp.jsx'
-import QuestionDisplay from './Components/QuestionDisplay/QuestionDisplay.jsx'
 import AddQuestion from './Components/CreateQuiz/AddQuestion.jsx'
+import QuizDisplay from './Components/QuizDisplay/QuizDisplay.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
-      <Route path='' element={<Home />} />
+      <Route path='/' element={<Home />} />
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
       <Route path='CreateQuiz' element={<CreateQuiz />} />
-      <Route path='addQuestion' element={<AddQuestion />} />
+      <Route path='/CreateQuiz/:createdQuizCode/addQuestion' element={<AddQuestion />} />
       <Route path='JoinQuiz' element={<JoinQuiz />} />
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
+      <Route path='QuizDisplay' element={<QuizDisplay />} />
       {/* <Route path='addDyn' element={<AddDynamicQuestions />} /> */}
-      <Route path='QuestionDisplay' element={<QuestionDisplay />} />
     </Route>
   )
 )

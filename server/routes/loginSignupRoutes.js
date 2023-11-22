@@ -23,7 +23,7 @@ router.post('/signUp',async (req, res)=>{
         return res.status(401).send("User With This Name Already Exists");
     }
     //encrypt the password
-    if(password==confirmPassword)
+    else if(password==confirmPassword)
     {
         const myEncPassword=await bcrypt.hash(password,10);
         //save the user in database

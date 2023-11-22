@@ -6,15 +6,15 @@ import axios from 'axios';
 
 function CreateQuiz() {
   const navigate = useNavigate()
-  // useEffect(() => {
-  //   let response = tokenCheck();
-  //   if (!response) {
-  //     navigate('/Login')
-  //   }
-  //   else {
-  //     navigate('/CreateQuiz');
-  //   }
-  // }, [])
+  useEffect(() => {
+    let response = tokenCheck();
+    if (!response) {
+      navigate('/Login')
+    }
+    else {
+      navigate('/CreateQuiz');
+    }
+  }, [])
 
   const alphabetSet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
   const numberSet = "0123456789";
@@ -35,19 +35,24 @@ function CreateQuiz() {
   const [time, setTime] = useState();
   const quizCode = generateQuizCode();
 
-  const submitData = async () => {
-    try {
+  const submitData = async (event) => {
+    event.preventDefault();
+    try 
+    {
       const response = await axios.post('http://localhost:5500/Quiz',
         {
           title,
           time,
           quizCode
         });
-      if (response && response.data) {
-        console.log(response);
-        navigate('/addQuestion')
+      if (response && response.data) 
+      {
+        const createdQuizCode = response.data.quizCode;
+        navigate(`/CreateQuiz/${createdQuizCode}/addQuestion`)
       }
-    } catch (error) {
+    } 
+    catch (error) 
+    {
       console.error(error);
     }
   }
@@ -114,3 +119,6 @@ function CreateQuiz() {
 }
 
 export default CreateQuiz
+
+
+
