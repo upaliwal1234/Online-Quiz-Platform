@@ -6,26 +6,14 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function JoinQuiz() {
   const navigate = useNavigate()
-  // useEffect(() => {
-  //   let response = tokenCheck();
-  //   if (!response) {
-  //     navigate('/Login')
-  //   }
-  //   else {
-  //     navigate('/JoinQuiz');
-  //   }
-  // }, [])
-  const [quizCode, setQuizCode] = useState('');
-
-  const handleJoinQuiz = async () => {
-    const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
-    if (response) {
-      navigate('/Quiz')
+  useEffect(() => {
+    let response = tokenCheck();
+    if (!response) {
+      navigate('/Login')
     }
     else {
-      toast.error("Wrong Quiz Code");
+      navigate('/JoinQuiz');
     }
-<<<<<<< HEAD
   }, [])
   const [quizCode, setQuizCode] = useState('');
   
@@ -39,8 +27,6 @@ function JoinQuiz() {
         {
           toast.error("Wrong Quiz Code");
         }
-=======
->>>>>>> 552dcedbf5129b8e850b26c0d5eeaf49326d5be3
   };
   return (
     <>

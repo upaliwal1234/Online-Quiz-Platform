@@ -23,7 +23,7 @@ function Home() {
         <div className="container mx-auto p-6 sm:p-12">
           <h1 className="text-4xl font-bold text-center mb-8 text-white">Welcome to Quizify!</h1>
 
-          <div className="h-full sm:h-80 flex flex-col sm:flex-row gap-5 sm:gap-20 max-w-full justify-center my-20">
+          <div className="h-full sm:h-80 text-center flex flex-col sm:flex-row gap-5 sm:gap-20 max-w-full justify-center my-20">
             <div className="bg-white rounded-lg shadow-lg p-6 sm:w-1/2 sm:h-80 sm:py-12">
               <h2 className="text-2xl text-center font-bold mb-4">Join a Quiz</h2>
               <p className="text-lg leading-relaxed sm:my-10">

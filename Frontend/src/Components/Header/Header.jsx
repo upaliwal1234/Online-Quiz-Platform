@@ -82,10 +82,17 @@ export default function Header() {
                   Join Quiz
                 </NavLink>
               </li>
-<<<<<<< HEAD
-=======
-
->>>>>>> 552dcedbf5129b8e850b26c0d5eeaf49326d5be3
+              <li>
+                <NavLink
+                  to="/StudentProfile"
+                  className={({ isActive }) =>
+                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
+                  }
+                >
+                  Profile
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
