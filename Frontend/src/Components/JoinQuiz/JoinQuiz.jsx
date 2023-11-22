@@ -21,7 +21,7 @@ function JoinQuiz() {
     const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
         if(response)
         {
-          navigate('/QuizDisplay')
+          navigate(`/QuizDisplay/${response.id}`)
         }
         else
         {
