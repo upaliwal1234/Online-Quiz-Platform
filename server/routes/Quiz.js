@@ -3,7 +3,6 @@ const Quiz = require('../model/Quiz');
 const Question = require('../model/Question');
 const router = express.Router(); //mini instance/application;
 const bodyParser = require('body-parser');
-const Question = require('../model/Question')
 const cors = require('cors')//to handle the different domains
 
 //route to create the Quiz
