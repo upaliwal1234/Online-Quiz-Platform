@@ -19,8 +19,9 @@ function JoinQuiz() {
 
   const handleJoinQuiz = async () => {
     const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
+    let quizId = response.data[0]._id;
     if (response) {
-      navigate(`/QuizDisplay/${response.id}`)
+      navigate(`/QuizDisplay/${quizId}`)
     }
     else {
       toast.error("Wrong Quiz Code");

@@ -42,9 +42,15 @@ router.post('/Quiz/:quizCode/question', async (req, res) => {
 //route to check the QuizCode entered by the user.
 router.get('/Quiz/:quizCode', async (req, res) => {
     const { quizCode } = req.params;
-    const response = await Quiz.find({ "quizCode": `${quizCode}` }).populate('questions');
-    if (response) {
-        return res.status(200).json(response);
+    try {
+
+        const response = await Quiz.find({ "quizCode": `${quizCode}` }).populate('questions');
+        if (response) {
+            return res.status(200).json(response);
+        }
+    }
+    catch {
+        return res.status(404).json({ message: 'Quiz not Found' });
     }
 })
 
@@ -62,16 +68,10 @@ router.get('/QuizDisplay/:quizId', async (req, res) => {
     if (!response) {
         return res.status(404).json({ message: 'Quiz not found' });
     }
-    //return res.status(200).json(response)
-    //find the length of Questions Array
     const maxIndex = response.questions.length;
-    //generate the random index using function
     let randomIndex = getRandomIndex(maxIndex);
-    // store the index in the id variable
     id = randomIndex
-    // find the question id
     const randomQuestionId = response.questions[randomIndex];
-    // get the question from the database.
     const randomQuestion = await Question.findById(randomQuestionId);
     return res.json(randomQuestion);
 })
