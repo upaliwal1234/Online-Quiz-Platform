@@ -3,8 +3,22 @@ import { Link, NavLink } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom';
+import LogOutBtn from './LogOutBtn';
+import LogInBtn from './LogInBtn';
 
 export default function Header() {
+
+  const [loginStatus, setLoginStatus] = useState(true)
+
+  useEffect(() => {
+    let response = tokenCheck();
+    if (!response) {
+      setLoginStatus(false)
+    }
+    else {
+      setLoginStatus(true)
+    }
+  }, [])
 
   return (
     <header className="shadow sticky z-50 top-0">
@@ -14,33 +28,7 @@ export default function Header() {
             Quizify
           </Link>
           <div className="flex items-center lg:order-2">
-            <NavLink
-              className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'bg-gray-50' : 'text-white'
-                } text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none`
-              }
-              to="/Login"
-            >
-              Log in
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'bg-gray-50' : 'text-white'
-                } text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none`
-              }
-              to="/SignUp"
-            >
-              Sign Up
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'bg-gray-50' : 'text-white'
-                } text-gray-800 hover:bg-gray-50 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 focus:outline-none`
-              }
-              to="/LogOut"
-            >
-              Log Out
-            </NavLink>
+            {loginStatus ? (<LogOutBtn />) : (<LogInBtn />)}
           </div>
           <div
             className="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1"
@@ -91,17 +79,19 @@ export default function Header() {
                   Join Quiz
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to="/UserProfile"
-                  className={({ isActive }) =>
-                    `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
-                    } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
-                  }
-                >
-                  Profile
-                </NavLink>
-              </li>
+              {loginStatus ? (
+                <li>
+                  <NavLink
+                    to="/UserProfile"
+                    className={({ isActive }) =>
+                      `block py-2 pr-4 pl-3 duration-200 ${isActive ? 'text-black' : 'text-white'
+                      } border-b border-gray-100  hover:bg-gray-50 lg:hover:bg-transparent lg:border-0  hover:text-black lg:p-0`
+                    }
+                  >
+                    Profile
+                  </NavLink>
+                </li>
+              ) : (<></>)}
             </ul>
           </div>
         </div>
