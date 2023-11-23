@@ -85,8 +85,9 @@ router.get('/QuizDisplay/:quizId/next', async (req, res) => {
     const response = await Quiz.findById(quizId);
     const maxIndex = response.questions.length;
     let randomIndex = getRandomIndex(maxIndex);
+
     if (usedIndexes.size == maxIndex) {
-        return res.status(200).json({ message: 'Quiz Completed' });
+        return res.status(200).json({ desc: 'Quiz Completed' });
     }
     while (usedIndexes.has(randomIndex)) {
         randomIndex = getRandomIndex(maxIndex);

@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 function QuizDisplayPage() {
+    const navigate = useNavigate();
     const { quizId } = useParams();
-    const [quizData, setQuizData] = useState(null);
-    const [selectedOption, setSelectedOption] = useState(null);
+    const [quizData, setQuizData] = useState();
+    const [selectedOption, setSelectedOption] = useState();
 
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.id);
@@ -14,7 +16,13 @@ function QuizDisplayPage() {
     const getNextQuestion = async () => {
         try {
             const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
-            setQuizData(response.data);
+
+            if (response.data.desc == 'Quiz Completed') {
+                navigate('/');
+            }
+            else {
+                setQuizData(response.data);
+            }
         } catch (error) {
             console.error('Error during fetching next question:', error);
         }
@@ -51,7 +59,7 @@ function QuizDisplayPage() {
                                             name='options'
                                             className='mr-2'
                                             onChange={handleOptionChange}
-                                            // checked={selectedOption === `option${index}`}
+                                        // checked={selectedOption === `option${index}`}
                                         />
                                         <label htmlFor={`option${index}`}>{option}</label>
                                     </div>
