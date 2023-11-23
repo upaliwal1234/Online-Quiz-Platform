@@ -1,21 +1,5 @@
-import { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
-import { tokenCheck } from '../../helperToken';
 import { Link } from 'react-router-dom';
 function Home() {
-  // const navigate = useNavigate();
-  // const [email, setEmail] = useState('')
-
-  // useEffect(() => {
-  //       let response = tokenCheck();
-  //       if(!response)
-  //       {
-  //         navigate('/Login')
-  //       }
-  //       else{
-  //         setEmail(response.email);
-  //       }
-  // }, [])
 
   return (
     <>
