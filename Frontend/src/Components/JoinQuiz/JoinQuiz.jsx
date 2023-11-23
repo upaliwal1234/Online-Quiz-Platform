@@ -18,12 +18,17 @@ function JoinQuiz() {
   const [quizCode, setQuizCode] = useState('');
 
   const handleJoinQuiz = async () => {
-    const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
-    if (response) {
-      navigate(`/QuizDisplay/${response.id}`)
-    }
-    else {
-      toast.error("Wrong Quiz Code");
+    try {
+      const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
+      console.log(response); // Log the response to see its structure
+      if (response && response.data && response.data.id) {
+        navigate(`/QuizDisplay/${response.data.id}`);
+      } else {
+        toast.error("Wrong Quiz Code");
+      }
+    } catch (error) {
+      console.error("Error during fetching quiz data:", error);
+      toast.error("Network Error: Unable to fetch quiz data");
     }
   };
   return (

@@ -5,6 +5,8 @@ const router = express.Router(); //mini instance/application;
 const bodyParser = require('body-parser');
 const cors = require('cors')//to handle the different domains
 
+
+router.use(cors())
 //route to create the Quiz
 router.post('/Quiz', async (req, res) => {
     //console.log("Hello from response")
@@ -42,8 +44,11 @@ router.post('/Quiz/:quizCode/question', async (req, res) => {
 //route to check the QuizCode entered by the user.
 router.get('/Quiz/:quizCode', async (req, res) => {
     const { quizCode } = req.params;
+    //console.log(quizCode)
     const response = await Quiz.find({ "quizCode": `${quizCode}` }).populate('questions');
-    if (response) {
+    //console.log(response)
+    if (response) 
+    {
         return res.status(200).json(response);
     }
 })
