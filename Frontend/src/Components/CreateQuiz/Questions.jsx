@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
-
+import { Link } from 'react-router-dom';
 
 function Questions() {
     useEffect(() => {
@@ -61,7 +61,10 @@ function Questions() {
                     )
                 })}
                 <div className='flex justify-center'>
-                    <button onClick={addQuestion} className="items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">Add Question</button>
+                    <button onClick={addQuestion} className="w-40 items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">Add Question</button>
+                </div>
+                <div className='flex justify-center'>
+                    <Link to='/' className="w-40 my-4 items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">Save Quiz</Link>
                 </div>
             </div>
         </div>
