@@ -30,12 +30,13 @@ function QuizDisplayPage() {
             }
         };
         fetchQuizData();
-    }, [quizId]);
+    }, []);
 
     return (
         <div className='min-h-screen'>
             <div action='' className='flex justify-center my-4'>
                 <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
+                
                     {quizData && (
                         <div className='w-full border-2 h-auto bg-red-600 p-5'>
                             <div className='w-full border h-1/2 mb-4 text-white'>
@@ -50,7 +51,7 @@ function QuizDisplayPage() {
                                             name='options'
                                             className='mr-2'
                                             onChange={handleOptionChange}
-                                            checked={selectedOption === `option${index}`}
+                                            // checked={selectedOption === `option${index}`}
                                         />
                                         <label htmlFor={`option${index}`}>{option}</label>
                                     </div>
