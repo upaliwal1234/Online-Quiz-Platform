@@ -29,7 +29,7 @@ const router = createBrowserRouter(
       <Route path='JoinQuiz' element={<JoinQuiz />} />
       <Route path='Login' element={<Login />} />
       <Route path='SignUp' element={<SignUp />} />
-      <Route path='QuizDisplay' element={<QuizDisplay />} />
+      <Route path='QuizDisplay/:quizId' element={<QuizDisplay />} />
       <Route path='UserProfile' element={<UserProfile />} />
       <Route path='LogOut' element={<LogOut />} />
     </Route>

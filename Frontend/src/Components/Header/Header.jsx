@@ -30,7 +30,7 @@ export default function Header() {
               }
               to="/SignUp"
             >
-              Sign UP
+              Sign Up
             </NavLink>
             <NavLink
               className={({ isActive }) =>

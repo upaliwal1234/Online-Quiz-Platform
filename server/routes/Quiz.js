@@ -23,6 +23,7 @@ router.post('/Quiz', async (req, res) => {
     return res.status(200).json(quiz);
 })
 
+//route to add the question of a particular quiz
 router.post('/Quiz/:quizCode/question', async (req, res) => {
     let { quizCode } = req.params;
     let { desc, quesNum, options, answer } = req.body;
