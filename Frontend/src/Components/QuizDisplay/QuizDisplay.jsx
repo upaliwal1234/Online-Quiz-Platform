@@ -10,9 +10,9 @@ function QuizDisplayPage() {
     const [selectedOption, setSelectedOption] = useState();
     const [score, setScore] = useState(0);
     const [timer, setTimer] = useState(0); // Timer state in seconds
-    const [quizQuestions,setquizQuestions]=useState({});
-    const [totalQuestions,settotalQuestions]=useState(0);
-    const [currentQuestion,setcurrentQuestion]=useState(0)
+    const [quizQuestions, setquizQuestions] = useState({});
+    const [totalQuestions, settotalQuestions] = useState(0);
+    const [currentQuestion, setcurrentQuestion] = useState(0)
     const startTimer = (durationInSeconds) => {
         setTimer(durationInSeconds);
         // Start a loop that decrements the timer every second
@@ -20,7 +20,7 @@ function QuizDisplayPage() {
             setTimer((prevTimer) => {
                 // Decrement the timer by 1 second if it's greater than 0
                 if (prevTimer > 0) {
-                    return prevTimer-1;
+                    return prevTimer - 1;
                 } else {
                     // If the timer reaches 0, clear the interval and navigate
                     clearInterval(intervalID);
@@ -29,12 +29,12 @@ function QuizDisplayPage() {
                 }
             });
         }, 1000);
-    
+
         // Return the interval ID to clear it later
         return intervalID;
     };
-    
-    
+
+
     useEffect(() => {
         if (quizQuestions && quizQuestions.length > 0) {
             setQuizData(quizQuestions[0]);
@@ -43,8 +43,8 @@ function QuizDisplayPage() {
             return () => clearInterval(timerId); // Clear the interval on unmount
         }
     }, []);
-    
-    
+
+
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.id);
     };
@@ -58,11 +58,11 @@ function QuizDisplayPage() {
     const getNextQuestion = async () => {
         try {
             console.log(currentQuestion);
-            const currQues=currentQuestion;
+            const currQues = currentQuestion;
 
-            if(currQues+1 >= totalQuestions) return navigate('/') 
-            setQuizData(quizQuestions[currQues+1]);
-            setcurrentQuestion(currQues+1);
+            if (currQues + 1 >= totalQuestions) return navigate('/')
+            setQuizData(quizQuestions[currQues + 1]);
+            setcurrentQuestion(currQues + 1);
             const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
             updateScore();
             if (response.data.desc == 'Quiz Completed') {
@@ -77,14 +77,14 @@ function QuizDisplayPage() {
     };
 
     useEffect(() => {
-        
+
         const fetchQuizData = async () => {
             try {
 
                 const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}`);
-                const quesIds=response.data.questions;
+                const quesIds = response.data.questions;
                 settotalQuestions(response.data.questions.length)
-                const response2=await axios.post('http://localhost:5500/getQuestions',{
+                const response2 = await axios.post('http://localhost:5500/getQuestions', {
                     quesIds
                 })
                 //console.log(response2)
@@ -97,20 +97,20 @@ function QuizDisplayPage() {
         fetchQuizData();
     }, []);
 
-    useEffect(()=>{
+    useEffect(() => {
         //console.log("Questions",quizQuestions);
         setQuizData(quizQuestions[0]);
         setcurrentQuestion(0);
-        startTimer(quizQuestions.length*60);
+        startTimer(quizQuestions.length * 60);
 
-    },[quizQuestions])
+    }, [quizQuestions])
 
     return (
         <div className='min-h-screen'>
             <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer} seconds</div>
             <div action='' className='flex justify-center my-4'>
                 <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
-                
+
                     {quizData && (
                         <div className='w-full border-2 rounded-lg bg-red-600 p-5'>
                             <div className='w-full border rounded-md h-32 flex flex-col justify-center mb-4 text-center font-bold text-xl text-white'>
