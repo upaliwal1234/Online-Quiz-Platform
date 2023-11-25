@@ -7,6 +7,8 @@ import axios from 'axios';
 
 function CreateQuiz() {
   const navigate = useNavigate()
+  const [userId, setUserId] = useState();
+
   useEffect(() => {
     let response = tokenCheck();
     if (!response) {
@@ -14,6 +16,7 @@ function CreateQuiz() {
     }
     else {
       navigate('/CreateQuiz');
+      setUserId(response.id);
     }
   }, [])
 
@@ -43,7 +46,8 @@ function CreateQuiz() {
         {
           title,
           time,
-          quizCode
+          quizCode,
+          userId
         });
       if (response && response.data) {
         const createdQuizCode = response.data.quizCode;

@@ -2,10 +2,25 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { tokenCheck } from '../../helperToken';
 
 function QuizDisplayPage() {
     const navigate = useNavigate();
+
+    const [userId, setUserId] = useState();
     const { quizId } = useParams();
+    useEffect(() => {
+        let response = tokenCheck();
+        if (!response) {
+            navigate('/Login')
+        }
+        else {
+            navigate(`/QuizDisplay/${quizId}`)
+            setUserId(response.id);
+        }
+    }, [])
+
+
     const [quizData, setQuizData] = useState();
     const [selectedOption, setSelectedOption] = useState();
     const [score, setScore] = useState(0);
@@ -44,14 +59,23 @@ function QuizDisplayPage() {
         }
     }, []);
 
-
+    const optionChar = ['A', 'B', 'C', 'D'];
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.id);
     };
 
+    const updateQuizResult = async () => {
+        try {
+            const response = await axios.post()
+        } catch (error) {
+
+        }
+    }
+
     const updateScore = () => {
-        if (selectedOption == quizData.answer) {
+        if (optionChar[selectedOption] == quizData.answer) {
             setScore(score + 1);
+            console.log(score);
         }
     }
 
@@ -66,6 +90,7 @@ function QuizDisplayPage() {
             const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
             updateScore();
             if (response.data.desc == 'Quiz Completed') {
+
                 navigate('/');
             }
             else {
