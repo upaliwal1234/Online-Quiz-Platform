@@ -12,44 +12,34 @@ function QuizDisplayPage() {
     const [timer, setTimer] = useState(0); // Timer state in seconds
     const [quizQuestions, setquizQuestions] = useState({});
     const [totalQuestions, settotalQuestions] = useState(0);
-    const [currentQuestion, setcurrentQuestion] = useState(0)
-    const startTimer = (durationInSeconds) => {
-        setTimer(durationInSeconds);
-        // Start a loop that decrements the timer every second
-        const intervalID = setInterval(() => {
-            setTimer((prevTimer) => {
-                // Decrement the timer by 1 second if it's greater than 0
-                if (prevTimer > 0) {
-                    return prevTimer - 1;
-                } else {
-                    // If the timer reaches 0, clear the interval and navigate
-                    clearInterval(intervalID);
-                    navigate('/');
-                    return 0;
-                }
-            });
-        }, 1000);
-
-        // Return the interval ID to clear it later
-        return intervalID;
-    };
-
+    const [currentQuestion, setcurrentQuestion] = useState(0);
 
     useEffect(() => {
-        if (quizQuestions && quizQuestions.length > 0) {
-            setQuizData(quizQuestions[0]);
-            setcurrentQuestion(0);
-            const timerId = startTimer(quizQuestions.length * 60);
-            return () => clearInterval(timerId); // Clear the interval on unmount
+        let intervalId;
+        if (timer > 0) {
+            intervalId = setInterval(() => {
+                setTimer(prevTimer => {
+                    if (prevTimer <= 0) {
+                        clearInterval(intervalId);
+                        return 0;
+                    } else {
+                        return prevTimer - 1;
+                    }
+                });
+            }, 1000);
         }
-    }, []);
+    
+        // Cleanup function: clear the interval on unmount
+        return () => clearInterval(intervalId);
+    }, [timer]);
+    
 
-
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.id);
-    };
+    const optionChar = ['A', 'B', 'C', 'D'];
 
     const updateScore = () => {
+        console.log("select", selectedOption)
+        console.log("answer", quizData.answer)
+        console.log(optionChar[selectedOption] == quizData.answer)
         if (selectedOption == quizData.answer) {
             setScore(score + 1);
         }
@@ -57,20 +47,13 @@ function QuizDisplayPage() {
 
     const getNextQuestion = async () => {
         try {
-            console.log(currentQuestion);
+            updateScore();
             const currQues = currentQuestion;
 
             if (currQues + 1 >= totalQuestions) return navigate('/')
             setQuizData(quizQuestions[currQues + 1]);
             setcurrentQuestion(currQues + 1);
-            const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
-            updateScore();
-            if (response.data.desc == 'Quiz Completed') {
-                navigate('/');
-            }
-            else {
-                setQuizData(response.data);
-            }
+            console.log(score)
         } catch (error) {
             console.error('Error during fetching next question:', error);
         }
@@ -87,7 +70,6 @@ function QuizDisplayPage() {
                 const response2 = await axios.post('http://localhost:5500/getQuestions', {
                     quesIds
                 })
-                //console.log(response2)
                 setquizQuestions(response2.data)
 
             } catch (error) {
@@ -98,16 +80,15 @@ function QuizDisplayPage() {
     }, []);
 
     useEffect(() => {
-        //console.log("Questions",quizQuestions);
         setQuizData(quizQuestions[0]);
         setcurrentQuestion(0);
-        startTimer(quizQuestions.length * 60);
+        setTimer(quizQuestions.length * 5);
 
     }, [quizQuestions])
 
     return (
         <div className='min-h-screen'>
-            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer} seconds</div>
+            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer==0 || timer?timer:" "} seconds</div>
             <div action='' className='flex justify-center my-4'>
                 <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
 
