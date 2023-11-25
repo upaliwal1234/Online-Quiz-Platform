@@ -58,45 +58,24 @@ router.get('/Quiz/:quizCode', async (req, res) => {
 
 //route to display the question when quiz is display.
 
-function getRandomIndex(max) {
-    return Math.floor(Math.random() * max);
-}
-
-let usedIndexes = new Set();
-let id = 0
 router.get('/QuizDisplay/:quizId', async (req, res) => {
     const { quizId } = req.params;
     const response = await Quiz.findById(quizId);
     if (!response) {
         return res.status(404).json({ message: 'Quiz not found' });
     }
-    const maxIndex = response.questions.length;
-    let randomIndex = getRandomIndex(maxIndex);
-    id = randomIndex
-    const randomQuestionId = response.questions[randomIndex];
-    const randomQuestion = await Question.findById(randomQuestionId);
-    return res.json(randomQuestion);
+    return res.json(response);
 })
 
-//route for the next question
-router.get('/QuizDisplay/:quizId/next', async (req, res) => {
-    usedIndexes.add(id);
-    const { quizId } = req.params;
-    const response = await Quiz.findById(quizId);
-    const maxIndex = response.questions.length;
-    let randomIndex = getRandomIndex(maxIndex);
-
-    if (usedIndexes.size == maxIndex) {
-        return res.status(200).json({ desc: 'Quiz Completed' });
-    }
-    while (usedIndexes.has(randomIndex)) {
-        randomIndex = getRandomIndex(maxIndex);
-    }
-    usedIndexes.add(randomIndex)
-    const randomQuestionId = response.questions[randomIndex];
-    const randomQuestion = await Question.findById(randomQuestionId);
-    console.log(usedIndexes);
-    return res.json(randomQuestion);
+router.post('/getQuestions',async(req,res)=>{
+    //console.log(req.body.quesIds)
+    const quesIds=req.body.quesIds;
+    const quizQuestions=[]
+    await Promise.all( quesIds.map(async (id)=>{
+        const question= await Question.findById(id);
+        quizQuestions.push(question)
+    }))
+    return res.json(quizQuestions);
 })
 module.exports = router
 

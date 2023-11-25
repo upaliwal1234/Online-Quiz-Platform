@@ -6,15 +6,15 @@ import { useNavigate } from 'react-router-dom';
 function About() {
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   let response = tokenCheck();
-  //   if (!response) {
-  //     navigate('/Login')
-  //   }
-  //   else {
-  //     navigate('/about');
-  //   }
-  // }, [])
+  useEffect(() => {
+    let response = tokenCheck();
+    if (!response) {
+      navigate('/Login')
+    }
+    else {
+      navigate('/about');
+    }
+  }, [])
 
   return (
     <>
@@ -37,8 +37,8 @@ function About() {
             </div>
           </div>
           <div className="mt-12">
-            <h2 className="text-2xl font-bold mb-4 text-white">Our Mission</h2>
-            <p className="text-lg leading-relaxed text-white">
+            <h2 className="text-2xl font-bold mb-4 text-white text-center">Our Mission</h2>
+            <p className="text-lg leading-relaxed text-white text-center">
               Our mission is to entertain, educate, and challenge our users through a diverse range of quizzes, fostering learning and enjoyment simultaneously.
             </p>
             <div className="flex items-center justify-center">

@@ -8,31 +8,73 @@ function QuizDisplayPage() {
     const { quizId } = useParams();
     const [quizData, setQuizData] = useState();
     const [selectedOption, setSelectedOption] = useState();
-
+    const [timer, setTimer] = useState(0); // Timer state in seconds
+    const [quizQuestions,setquizQuestions]=useState({});
+    const [totalQuestions,settotalQuestions]=useState(0);
+    const [currentQuestion,setcurrentQuestion]=useState(0)
+    const startTimer = (durationInSeconds) => {
+        setTimer(durationInSeconds);
+        // Start a loop that decrements the timer every second
+        const intervalID = setInterval(() => {
+            setTimer((prevTimer) => {
+                // Decrement the timer by 1 second if it's greater than 0
+                if (prevTimer > 0) {
+                    return prevTimer-1;
+                } else {
+                    // If the timer reaches 0, clear the interval and navigate
+                    clearInterval(intervalID);
+                    navigate('/');
+                    return 0;
+                }
+            });
+        }, 1000);
+    
+        // Return the interval ID to clear it later
+        return intervalID;
+    };
+    
+    
+    useEffect(() => {
+        if (quizQuestions && quizQuestions.length > 0) {
+            setQuizData(quizQuestions[0]);
+            setcurrentQuestion(0);
+            const timerId = startTimer(quizQuestions.length * 60);
+            return () => clearInterval(timerId); // Clear the interval on unmount
+        }
+    }, []);
+    
+    
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.id);
     };
 
     const getNextQuestion = async () => {
         try {
-            const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
+            console.log(currentQuestion);
+            const currQues=currentQuestion;
 
-            if (response.data.desc == 'Quiz Completed') {
-                navigate('/');
-            }
-            else {
-                setQuizData(response.data);
-            }
+            if(currQues+1 >= totalQuestions) return navigate('/') 
+            setQuizData(quizQuestions[currQues+1]);
+            setcurrentQuestion(currQues+1);
         } catch (error) {
             console.error('Error during fetching next question:', error);
         }
     };
 
     useEffect(() => {
+        
         const fetchQuizData = async () => {
             try {
+
                 const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}`);
-                setQuizData(response.data);
+                const quesIds=response.data.questions;
+                settotalQuestions(response.data.questions.length)
+                const response2=await axios.post('http://localhost:5500/getQuestions',{
+                    quesIds
+                })
+                //console.log(response2)
+                setquizQuestions(response2.data)
+
             } catch (error) {
                 console.error('Error during fetching quiz data:', error);
             }
@@ -40,8 +82,17 @@ function QuizDisplayPage() {
         fetchQuizData();
     }, []);
 
+    useEffect(()=>{
+        //console.log("Questions",quizQuestions);
+        setQuizData(quizQuestions[0]);
+        setcurrentQuestion(0);
+        startTimer(quizQuestions.length*60);
+
+    },[quizQuestions])
+
     return (
         <div className='min-h-screen'>
+            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer} seconds</div>
             <div action='' className='flex justify-center my-4'>
                 <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
                 
