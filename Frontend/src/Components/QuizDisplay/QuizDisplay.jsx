@@ -60,8 +60,8 @@ function QuizDisplayPage() {
     }, []);
 
     const optionChar = ['A', 'B', 'C', 'D'];
-    const handleOptionChange = (event) => {
-        setSelectedOption(event.target.id);
+    const handleOptionChange = (index) => {
+        setSelectedOption(index);
     };
 
     const updateQuizResult = async () => {
@@ -149,7 +149,7 @@ function QuizDisplayPage() {
 
                                         <button className={`w-full border rounded-md h-10 mb-4 text-center text-md text-white ${selectedOption == index ? "bg-red-700 border-none" : null
                                             }  hover:bg-red-700 hover:border-none`}
-                                            onClick={() => setSelectedOption(index)}
+                                            onClick={() => handleOptionChange(index)}
                                         >
                                             {option}
                                         </button>
