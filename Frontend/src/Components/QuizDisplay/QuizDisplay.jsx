@@ -22,12 +22,13 @@ function QuizDisplayPage() {
 
 
     const [quizData, setQuizData] = useState();
-    const [selectedOption, setSelectedOption] = useState();
+    const [selectedOption, setSelectedOption] = useState(5);
     const [score, setScore] = useState(0);
     const [timer, setTimer] = useState(0); // Timer state in seconds
     const [quizQuestions, setquizQuestions] = useState({});
     const [totalQuestions, settotalQuestions] = useState(0);
     const [currentQuestion, setcurrentQuestion] = useState(0);
+
 
     useEffect(() => {
         let intervalId;
@@ -43,13 +44,17 @@ function QuizDisplayPage() {
                 });
             }, 1000);
         }
-    
+
         // Cleanup function: clear the interval on unmount
         return () => clearInterval(intervalId);
     }, [timer]);
-    
+
 
     const optionChar = ['A', 'B', 'C', 'D'];
+    const handleOptionChange = (index) => {
+        setSelectedOption(index);
+    };
+
 
     const updateScore = () => {
         console.log("select", selectedOption)
@@ -61,26 +66,46 @@ function QuizDisplayPage() {
         }
     }
 
-    const getNextQuestion = async () => {
+    const getNextQuestion = () => {
         try {
             updateScore();
             const currQues = currentQuestion;
-
-            if (currQues + 1 >= totalQuestions) return navigate('/')
-            setQuizData(quizQuestions[currQues + 1]);
-            setcurrentQuestion(currQues + 1);
-            const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
-            updateScore();
-            if (response.data.desc == 'Quiz Completed') {
-                navigate('/');
+            updateScore(selectedOption);
+            if (currQues < totalQuestions - 1) {
+                setSelectedOption(5);
+                setQuizData(quizQuestions[currQues + 1]);
+                setcurrentQuestion(currQues + 1);
             }
             else {
-                setQuizData(response.data);
+                updateQuizResult();
+                navigate('/')
             }
         } catch (error) {
             console.error('Error during fetching next question:', error);
         }
     };
+
+    const updateQuizResult = async () => {
+
+        try {
+            let ttlQues = quizQuestions.length;
+            let correctQues = score;
+            setScore((prevScore) => {
+                correctQues = prevScore; // Update correctQues with the latest score
+            });
+            console.log(correctQues);
+            const response = await axios.post("http://localhost:5500/Quiz/QuizResult/new", {
+                quizId,
+                userId,
+                ttlQues,
+                correctQues
+            });
+            console.log(response.data);
+
+        } catch (e) {
+            console.error(e);
+        }
+    }
 
     useEffect(() => {
 
@@ -111,7 +136,7 @@ function QuizDisplayPage() {
 
     return (
         <div className='min-h-screen'>
-            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer==0 || timer?timer:" "} seconds</div>
+            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer == 0 || timer ? timer : " "} seconds</div>
             <div action='' className='flex justify-center my-4'>
                 <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
 

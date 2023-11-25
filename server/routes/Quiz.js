@@ -2,6 +2,7 @@ const express = require('express');
 const Quiz = require('../model/Quiz');
 const Question = require('../model/Question');
 const User = require('../model/User')
+const QuizResult = require('../model/QuizResult');
 const router = express.Router(); //mini instance/application;
 const bodyParser = require('body-parser');
 const cors = require('cors')//to handle the different domains
@@ -68,17 +69,25 @@ router.get('/QuizDisplay/:quizId', async (req, res) => {
     return res.json(response);
 })
 
-router.post('/getQuestions',async(req,res)=>{
+router.post('/getQuestions', async (req, res) => {
     //console.log(req.body.quesIds)
-    const quesIds=req.body.quesIds;
-    const quizQuestions=[]
-    await Promise.all( quesIds.map(async (id)=>{
-        const question= await Question.findById(id);
+    const quesIds = req.body.quesIds;
+    const quizQuestions = []
+    await Promise.all(quesIds.map(async (id) => {
+        const question = await Question.findById(id);
         quizQuestions.push(question)
     }))
     return res.json(quizQuestions);
 })
+
+router.post('/Quiz/QuizResult/new', async (req, res) => {
+    const { quizId, userId, ttlQues, correctQues } = req.body;
+    const { quizCode } = await Quiz.findById(quizId);
+    console.log(quizCode);
+    const result = new QuizResult({ quizId, ttlQues, correctQues })
+    res.status(200).json(result);
+})
+
+
+
 module.exports = router
-
-
-
