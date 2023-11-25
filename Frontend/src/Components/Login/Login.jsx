@@ -46,6 +46,7 @@ function Login() {
           //console.log("Decoded Token ",decodedToken)
           window.localStorage.setItem('myToken', tokenString)
           navigate('/');
+          window.location.reload(false)
         }
       }
     }

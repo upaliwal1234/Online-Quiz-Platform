@@ -3,21 +3,20 @@ import { useEffect } from 'react';
 import { tokenCheck } from '../../helperToken';
 import { useNavigate } from 'react-router-dom';
 const LogoutPage = () => {
-  const navigate=useNavigate();
-  useEffect(()=>{
-    let response=tokenCheck();
-    if(!(response))
-    {
+  const navigate = useNavigate();
+  useEffect(() => {
+    let response = tokenCheck();
+    if (!(response)) {
       navigate('/Login')
     }
-    else
-    {
+    else {
       navigate('/LogOut')
     }
-  },[])
-  const handleLogout=()=>{
+  }, [])
+  const handleLogout = () => {
     localStorage.removeItem('myToken');
     navigate('/Login')
+    window.location.reload(false)
   }
   return (
     <div className="flex justify-center items-center m-28">
