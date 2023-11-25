@@ -56,7 +56,7 @@ function Questions() {
                                 <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[3]}</span>
                             </div>
 
-                            <a href="#" className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</a>
+                            {/* <a href="#" className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</a> */}
                         </div>
                     )
                 })}

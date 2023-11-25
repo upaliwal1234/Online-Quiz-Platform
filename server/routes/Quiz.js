@@ -82,10 +82,15 @@ router.post('/getQuestions', async (req, res) => {
 
 router.post('/Quiz/QuizResult/new', async (req, res) => {
     const { quizId, userId, ttlQues, correctQues } = req.body;
-    const { quizCode } = await Quiz.findById(quizId);
-    console.log(quizCode);
-    const result = new QuizResult({ quizId, ttlQues, correctQues })
-    res.status(200).json(result);
+    let quiz = await Quiz.findById(quizId);
+    let user = await User.findById(userId);
+    let quizCode = quiz.quizCode;
+    let quizResult = new QuizResult({ quizId, userId, quizCode, ttlQues, correctQues });
+    user.quizPlayed.push(quiz);
+    user.quizResult.push(quizResult)
+    await user.save();
+    await quizResult.save();
+    return res.status(200).json(quizResult);
 })
 
 

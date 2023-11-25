@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
+import QuizResult from './QuizResult';
 
 function QuizDisplayPage() {
     const navigate = useNavigate();
@@ -20,7 +21,7 @@ function QuizDisplayPage() {
         }
     }, [])
 
-
+    const [quiz, setQuiz] = useState('');
     const [quizData, setQuizData] = useState();
     const [selectedOption, setSelectedOption] = useState(5);
     const [score, setScore] = useState(0);
@@ -28,6 +29,7 @@ function QuizDisplayPage() {
     const [quizQuestions, setquizQuestions] = useState({});
     const [totalQuestions, settotalQuestions] = useState(0);
     const [currentQuestion, setcurrentQuestion] = useState(0);
+    const [showResult, setShowResult] = useState(false);
 
 
     useEffect(() => {
@@ -57,12 +59,8 @@ function QuizDisplayPage() {
 
 
     const updateScore = () => {
-        console.log("select", selectedOption)
-        console.log("answer", quizData.answer)
-        console.log(optionChar[selectedOption] == quizData.answer)
-        if (selectedOption == quizData.answer) {
+        if (optionChar[selectedOption] == quizData.answer) {
             setScore(score + 1);
-            console.log(score);
         }
     }
 
@@ -70,15 +68,13 @@ function QuizDisplayPage() {
         try {
             updateScore();
             const currQues = currentQuestion;
-            updateScore(selectedOption);
             if (currQues < totalQuestions - 1) {
                 setSelectedOption(5);
                 setQuizData(quizQuestions[currQues + 1]);
                 setcurrentQuestion(currQues + 1);
             }
             else {
-                updateQuizResult();
-                navigate('/')
+                setShowResult(true);
             }
         } catch (error) {
             console.error('Error during fetching next question:', error);
@@ -90,17 +86,13 @@ function QuizDisplayPage() {
         try {
             let ttlQues = quizQuestions.length;
             let correctQues = score;
-            setScore((prevScore) => {
-                correctQues = prevScore; // Update correctQues with the latest score
-            });
-            console.log(correctQues);
-            const response = await axios.post("http://localhost:5500/Quiz/QuizResult/new", {
+            await axios.post("http://localhost:5500/Quiz/QuizResult/new", {
                 quizId,
                 userId,
                 ttlQues,
                 correctQues
             });
-            console.log(response.data);
+            navigate('/');
 
         } catch (e) {
             console.error(e);
@@ -113,6 +105,7 @@ function QuizDisplayPage() {
             try {
 
                 const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}`);
+                setQuiz(response.data);
                 const quesIds = response.data.questions;
                 settotalQuestions(response.data.questions.length)
                 const response2 = await axios.post('http://localhost:5500/getQuestions', {
@@ -136,44 +129,51 @@ function QuizDisplayPage() {
 
     return (
         <div className='min-h-screen'>
-            <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer == 0 || timer ? timer : " "} seconds</div>
-            <div action='' className='flex justify-center my-4'>
-                <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
+            {showResult ? (
+                <QuizResult score={score} totalQues={quizQuestions.length} saveResults={updateQuizResult} quizTitle={quiz.title} />
+            ) : (
 
-                    {quizData && (
-                        <div className='w-full border-2 rounded-lg bg-red-600 p-5'>
-                            <div className='w-full border rounded-md h-32 flex flex-col justify-center mb-4 text-center font-bold text-xl text-white'>
-                                <p>
-                                    {quizData.desc}
-                                </p>
-                            </div>
-                            <div className='flex flex-col gap-2'>
-                                {quizData.options.map((option, index) => (
-                                    <div className='flex items-center ' key={index} >
+                <>
+                    <div className='text-center m-4 text-white bg-red-600 rounded-lg'>Timer :{timer == 0 || timer ? timer : " "} seconds</div>
+                    <div action='' className='flex justify-center my-4'>
+                        <div className='w-full max-w-screen-md h-full flex flex-col justify-center items-center gap-2 p-4'>
 
-                                        <button className={`w-full border rounded-md h-10 mb-4 text-center text-md text-white ${selectedOption == index ? "bg-red-700 border-none" : null
-                                            }  hover:bg-red-700 hover:border-none`}
-                                            onClick={() => handleOptionChange(index)}
-                                        >
-                                            {option}
+                            {quizData && (
+                                <div className='w-full border-2 rounded-lg bg-red-600 p-5'>
+                                    <div className='w-full border rounded-md h-32 flex flex-col justify-center mb-4 text-center font-bold text-xl text-white'>
+                                        <p>
+                                            {quizData.desc}
+                                        </p>
+                                    </div>
+                                    <div className='flex flex-col gap-2'>
+                                        {quizData.options.map((option, index) => (
+                                            <div className='flex items-center ' key={index} >
+
+                                                <button className={`w-full border rounded-md h-10 mb-4 text-center text-md text-white ${selectedOption == index ? "bg-red-700 border-none" : null
+                                                    }  hover:bg-red-700 hover:border-none`}
+                                                    onClick={() => handleOptionChange(index)}
+                                                >
+                                                    {option}
+                                                </button>
+                                            </div>
+                                        ))}
+                                    </div>
+                                    <div className='text-center'>
+                                        <button
+                                            type='submit'
+                                            onClick={getNextQuestion}
+                                            className='bg-red-500 hover:bg-red-300 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out'>
+                                            Next
                                         </button>
                                     </div>
-                                ))}
-                            </div>
-                            <div className='text-center'>
-                                <button
-                                    type='submit'
-                                    onClick={getNextQuestion}
-                                    className='bg-red-500 hover:bg-red-300 text-white font-bold py-2 px-4 rounded-md transition duration-300 ease-in-out'>
-                                    Next
-                                </button>
-                            </div>
+                                </div>
+
+                            )}
+
                         </div>
-
-                    )}
-
-                </div>
-            </div>
+                    </div>
+                </>
+            )}
         </div >
     );
 }

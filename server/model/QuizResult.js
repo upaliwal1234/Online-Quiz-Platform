@@ -5,6 +5,9 @@ const quizResultSchema = new mongoose.Schema({
         type: mongoose.Types.ObjectId,
         ref: "Quiz"
     },
+    userId: {
+        type: mongoose.Types.ObjectId
+    },
     quizCode: {
         type: String
     },
