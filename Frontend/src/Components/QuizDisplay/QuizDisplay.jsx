@@ -2,10 +2,25 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
+import { tokenCheck } from '../../helperToken';
 
 function QuizDisplayPage() {
     const navigate = useNavigate();
+
+    const [userId, setUserId] = useState();
     const { quizId } = useParams();
+    useEffect(() => {
+        let response = tokenCheck();
+        if (!response) {
+            navigate('/Login')
+        }
+        else {
+            navigate(`/QuizDisplay/${quizId}`)
+            setUserId(response.id);
+        }
+    }, [])
+
+
     const [quizData, setQuizData] = useState();
     const [selectedOption, setSelectedOption] = useState();
     const [score, setScore] = useState(0);
@@ -42,6 +57,7 @@ function QuizDisplayPage() {
         console.log(optionChar[selectedOption] == quizData.answer)
         if (selectedOption == quizData.answer) {
             setScore(score + 1);
+            console.log(score);
         }
     }
 
@@ -53,7 +69,14 @@ function QuizDisplayPage() {
             if (currQues + 1 >= totalQuestions) return navigate('/')
             setQuizData(quizQuestions[currQues + 1]);
             setcurrentQuestion(currQues + 1);
-            console.log(score)
+            const response = await axios.get(`http://localhost:5500/QuizDisplay/${quizId}/next`);
+            updateScore();
+            if (response.data.desc == 'Quiz Completed') {
+                navigate('/');
+            }
+            else {
+                setQuizData(response.data);
+            }
         } catch (error) {
             console.error('Error during fetching next question:', error);
         }
@@ -105,7 +128,7 @@ function QuizDisplayPage() {
 
                                         <button className={`w-full border rounded-md h-10 mb-4 text-center text-md text-white ${selectedOption == index ? "bg-red-700 border-none" : null
                                             }  hover:bg-red-700 hover:border-none`}
-                                            onClick={() => setSelectedOption(index)}
+                                            onClick={() => handleOptionChange(index)}
                                         >
                                             {option}
                                         </button>

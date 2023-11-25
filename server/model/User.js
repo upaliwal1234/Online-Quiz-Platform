@@ -23,7 +23,7 @@ const userSchema = new mongoose.Schema({
     quizPlayed: [
         {
             type: mongoose.Types.ObjectId,
-            ref: "Quiz"
+            ref: "QuizHistory"
         }
     ]
 })

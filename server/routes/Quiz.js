@@ -1,6 +1,7 @@
 const express = require('express');
 const Quiz = require('../model/Quiz');
 const Question = require('../model/Question');
+const User = require('../model/User')
 const router = express.Router(); //mini instance/application;
 const bodyParser = require('body-parser');
 const cors = require('cors')//to handle the different domains
@@ -11,17 +12,17 @@ router.use(cors())
 router.post('/Quiz', async (req, res) => {
     //console.log("Hello from response")
     //get all data from body
-    const { title, time, quizCode } = req.body;
+    const { title, time, quizCode, userId } = req.body;
     //check if all data exists
     if (!(title && time)) {
         console.log("All Fields Are Necessary")
         return res.status(400).send("All Fields are necessary");
     }
-    const quiz = await Quiz.create({
-        title,
-        time,
-        quizCode
-    })
+    let user = await User.findById(userId);
+    let quiz = new Quiz({ title, time, quizCode });
+    user.quizCreated.push(quiz);
+    await user.save();
+    await quiz.save();
     return res.status(200).json(quiz);
 })
 

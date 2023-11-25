@@ -21,14 +21,11 @@ function UserProfile() {
     }
   }, [])
 
-  const DisplayDetails=async (userId)=>{
-    try 
-    {
+  const DisplayDetails = async (userId) => {
+    try {
       const userData = await axios.get(`http://localhost:5500/user/${userId}`);
-      console.log(User.data);
       setUser(userData.data);
-    } catch (error) 
-    {
+    } catch (error) {
       console.error('Error :', error);
     }
   };
