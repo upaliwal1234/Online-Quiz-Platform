@@ -13,6 +13,7 @@ const loginSignupRoutes = require('./routes/loginSignupRoutes')
 const quizRoutes = require('./routes/Quiz')
 const userRoutes = require('./routes/user')
 const questionRoutes = require('./routes/question')
+const methodOverride = require('method-override');
 
 app.use(bodyParser.json());
 app.use(cors())
