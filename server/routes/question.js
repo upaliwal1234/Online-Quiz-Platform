@@ -22,6 +22,31 @@ router.post('/Question/new', async (req, res) => {
     return res.status(200).json(question);
 })
 
+router.patch('/Question/:id/edit', async (req, res) => {
+    let { id } = req.params;
+    try {
+        let { desc, quesNum, options, answer } = req.body;
+        let question = await Question.findById(id);
+        question.desc = desc;
+        question.quesNum = quesNum;
+        question.options = options;
+        question.answer = answer;
+        await question.save();
+        return res.status(200).json(question);
+    } catch (error) {
+        return res.status(500).json({ message: error })
+    }
+})
+
+router.delete('/Question/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const question = await Question.findByIdAndDelete(id);
+        return res.status(200).json(question);
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+})
 
 router.get('/Question/:id', async (req, res) => {
     //get the id of the question
