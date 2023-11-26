@@ -27,6 +27,23 @@ router.post('/Quiz', async (req, res) => {
     return res.status(200).json(quiz);
 })
 
+router.patch('/Quiz/:id/edit', async (req, res) => {
+    const { id } = req.params;
+    try {
+        const { title, time } = req.body;
+        const quiz = await Quiz.findById(id);
+        if (!quiz) {
+            return res.status(404).json({ message: "Quiz not found" });
+        }
+        quiz.title = title;
+        quiz.time = time;
+        quiz.save();
+        return res.status(200).json(quiz);
+    } catch (error) {
+        return res.status(500).json({ message: error });
+    }
+})
+
 //route to add the question of a particular quiz
 router.post('/Quiz/:quizCode/question', async (req, res) => {
     let { quizCode } = req.params;
@@ -86,11 +103,26 @@ router.post('/Quiz/QuizResult/new', async (req, res) => {
     let user = await User.findById(userId);
     let quizCode = quiz.quizCode;
     let quizResult = new QuizResult({ quizId, userId, quizCode, ttlQues, correctQues });
-    user.quizPlayed.push(quiz);
+
+    user.quizPlayed.addToSet(quiz);
     user.quizResult.push(quizResult)
     await user.save();
     await quizResult.save();
     return res.status(200).json(quizResult);
+})
+
+router.get('/QuizResult/:userId/:quizCode', async (req, res) => {
+    const { userId, quizCode } = req.params;
+    try {
+        let results = await QuizResult.find({ userId: userId, quizCode: quizCode }).populate("quizId");
+        if (results) {
+            return res.status(200).json(results);
+        }
+        return res.status(404).json({ message: "Results Not Found" });
+
+    } catch (error) {
+        return res.status(500).json({ error })
+    }
 })
 
 
