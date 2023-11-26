@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
 import { Link } from 'react-router-dom';
+import { toast, ToastContainer } from 'react-toastify';
 
 function Questions() {
     useEffect(() => {
@@ -40,6 +41,27 @@ function Questions() {
         navigate(`new`)
     }
 
+    const navigateEdit = (event, id) => {
+        event.preventDefault();
+        navigate(`${id}/edit`);
+    }
+
+    const handleDelete = async (event, id) => {
+        event.preventDefault();
+        try {
+            const response = await axios.delete(`http://localhost:5500/Question/${id}`);
+            if (response.status == 200) {
+                fetchQuizData();
+                toast.success("Question Deleted Successfully");
+            }
+            else if (!response) {
+                toast.error("Error in deletion");
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     return (
         <div className='min-h-screen flex justify-center w-full'>
             <div className='my-10 item justify-center w-2/3'>
@@ -56,7 +78,10 @@ function Questions() {
                                 <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[3]}</span>
                             </div>
 
-                            {/* <a href="#" className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</a> */}
+                            <div className='text-right'>
+                                <button onClick={(event) => navigateEdit(event, quizData.questions[index]._id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</button>
+                                <button onClick={(event) => handleDelete(event, quizData.questions[index]._id)} className="inline-flex items-center mx-4 px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Delete</button>
+                            </div>
                         </div>
                     )
                 })}
@@ -67,7 +92,8 @@ function Questions() {
                     <Link to='/' className="w-40 my-4 items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-500 rounded-lg hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300">Save Quiz</Link>
                 </div>
             </div>
-        </div>
+            <ToastContainer />
+        </div >
     )
 }
 

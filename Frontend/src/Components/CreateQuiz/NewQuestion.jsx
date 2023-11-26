@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
+import QuestionAddEdit from './QuestionAddEdit';
 
 function NewQuestion() {
     const navigate = useNavigate();
@@ -58,37 +59,16 @@ function NewQuestion() {
     }
 
     return (
-        <div className='min-h-screen my-5'>
-            <form className="max-w-sm mx-auto" onSubmit={submitData}>
-                <div className="mb-5">
-                    <label htmlFor="desc" className="block mb-2 text-sm font-medium text-gray-900 ">Description</label>
-                    <textarea type="text" id="desc" name='desc' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full h-24 p-2.5" placeholder="Type question here..." required
-                        onChange={handleDescChange}
-                    />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="option1" className="block mb-2 text-sm font-medium text-gray-900 ">Option A</label>
-                    <input type="text" id="option1" name='options' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" onChange={(e) => handleOptionChange(e, 0)} required />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="option1" className="block mb-2 text-sm font-medium text-gray-900 ">Option B</label>
-                    <input type="text" id="option1" name='options' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" onChange={(e) => handleOptionChange(e, 1)} required />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="option1" className="block mb-2 text-sm font-medium text-gray-900 ">Option C</label>
-                    <input type="text" id="option1" name='options' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" onChange={(e) => handleOptionChange(e, 2)} required />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="option1" className="block mb-2 text-sm font-medium text-gray-900 ">Option D</label>
-                    <input type="text" id="option1" name='options' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" onChange={(e) => handleOptionChange(e, 3)} required />
-                </div>
-                <div className="mb-5">
-                    <label htmlFor="answer" className="block mb-2 text-sm font-medium text-gray-900 ">Answer</label>
-                    <input type="text" id="answer" name='answer' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5" placeholder='e.g. A' onChange={handleAnswerChange} required />
-                </div>
-                <button type="submit" className="text-white bg-red-500 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">Save</button>
-            </form>
-        </div>
+        <>
+            <div className='my-5'>
+                <h1 className='text-gray-800 font-bold text-3xl text-center'>Add New Question</h1>
+            </div>
+            <QuestionAddEdit
+                option={options}
+                submitData={submitData} handleDescChange={handleDescChange} handleAnswerChange={handleAnswerChange} handleOptionChange={handleOptionChange}
+            />
+            <ToastContainer />
+        </>
     )
 }
 
