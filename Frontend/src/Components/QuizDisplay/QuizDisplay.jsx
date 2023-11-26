@@ -37,7 +37,11 @@ function QuizDisplayPage() {
         if (timer > 0) {
             intervalId = setInterval(() => {
                 setTimer(prevTimer => {
+                    if (timer <= 1) {
+                        setShowResult(true);
+                    }
                     if (prevTimer <= 0) {
+                        setShowResult(true);
                         clearInterval(intervalId);
                         return 0;
                     } else {
@@ -123,7 +127,7 @@ function QuizDisplayPage() {
     useEffect(() => {
         setQuizData(quizQuestions[0]);
         setcurrentQuestion(0);
-        setTimer(quizQuestions.length * 5);
+        setTimer(quiz.time);
 
     }, [quizQuestions])
 

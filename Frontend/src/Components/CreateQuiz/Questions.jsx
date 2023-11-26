@@ -62,25 +62,51 @@ function Questions() {
         }
     }
 
+    const handleQuizEdit = (e) => {
+        e.preventDefault();
+        navigate(`/Quiz/${quizCode}/edit`);
+    }
+
     return (
         <div className='min-h-screen flex justify-center w-full'>
             <div className='my-10 item justify-center w-2/3'>
-                <h1 className="mb-5 text-3xl font-bold tracking-tight text-gray-900 text-center">Quiz Title: {quizData.title}</h1>
+                <h1 className="mb-5 text-xl md:text-3xl font-bold tracking-tight text-gray-900 text-center">Quiz Title: {quizData.title}</h1>
+                <div className='flex flex-wrap justify-center sm:justify-between'>
+                    <div className='mx-10'>
+                        <h1 className="mb-1 text-lg md:text-2xl font-bold tracking-tight text-gray-900 text-center">Time: {quizData.time} Seconds</h1>
+                    </div>
+                    <button onClick={handleQuizEdit} className="py-0 px-8 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</button>
+                </div>
                 {questions.map((dataObj, index) => {
                     return (
-                        <div className="p-6 bg-white border border-gray-200 rounded-lg shadow m-2 w-full">
-                            <p className="mb-3 text-lg font-bold text-gray-700">{quizData.questions[index].desc}</p>
-                            <div className='flex justify-between w-1/2 my-2'>
-                                <span className="py-2 text-base font-medium text-center text-gray-800  rounded-md">Options: </span>
-                                <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[0]}</span>
-                                <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[1]}</span>
-                                <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[2]}</span>
-                                <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[3]}</span>
+                        <div className="p-6 flex flex-col bg-white border border-gray-200 rounded-lg shadow m-2 w-full" key={index}>
+                            <div>
+                                <p className="mb-3 text-lg font-bold text-gray-700">{quizData.questions[index].desc}</p>
+                            </div>
+                            <div className='flex flex-wrap justify-between w-2/3 my-2'>
+                                <div>
+                                    <h1 className="py-2 text-base font-medium text-center text-gray-800  rounded-md">Options: </h1>
+                                </div>
+                                <div className='flex flex-wrap'>
+                                    <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[0]}</span>
+                                    <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[1]}</span>
+                                    <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[2]}</span>
+                                    <span className="items-center px-6 py-2 text-base font-medium text-center text-gray-800  rounded-md">{quizData.questions[index].options[3]}</span>
+                                </div>
+                            </div>
+                            <div>
+                                <h1 className="py-2 text-base font-medium text-left text-gray-800  rounded-md">Answer: {quizData.questions[index].answer}</h1>
+
                             </div>
 
-                            <div className='text-right'>
-                                <button onClick={(event) => navigateEdit(event, quizData.questions[index]._id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</button>
-                                <button onClick={(event) => handleDelete(event, quizData.questions[index]._id)} className="inline-flex items-center mx-4 px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Delete</button>
+                            <div className='flex flex-wrap gap-1 sm:gap-0  sm:flex-nowrap justify-center sm:flex-none sm:justify-end sm:text-right'>
+                                <div>
+
+                                    <button onClick={(event) => navigateEdit(event, quizData.questions[index]._id)} className="inline-flex items-center px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Edit</button>
+                                </div>
+                                <div>
+                                    <button onClick={(event) => handleDelete(event, quizData.questions[index]._id)} className="inline-flex items-center mx-4 px-6 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-blue-300">Delete</button>
+                                </div>
                             </div>
                         </div>
                     )

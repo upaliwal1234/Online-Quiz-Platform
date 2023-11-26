@@ -17,6 +17,11 @@ import UserProfile from './Components/userProfile/UserProfile.jsx'
 import LogOut from './Components/LogOut/LogOut.jsx'
 import PageNotFound from './Components/PageNotFound/PageNotFound.jsx'
 import QuestionEdit from './Components/CreateQuiz/QuestionEdit.jsx'
+import QuizCard from './Components/Cards/QuizCard.jsx'
+import CreatedQuizes from './Components/Cards/CreatedQuizes.jsx'
+import JoinedQuizes from './Components/Cards/JoinedQuizes.jsx'
+import EditQuiz from './Components/CreateQuiz/EditQuiz.jsx'
+import JoinedQuizResult from './Components/Cards/JoinedQuizResult.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +30,7 @@ const router = createBrowserRouter(
       <Route path='about' element={<About />} />
       <Route path='contact' element={<Contact />} />
       <Route path='CreateQuiz' element={<CreateQuiz />} />
+      <Route path='Quiz/:quizCode/edit' element={<EditQuiz />} />
       <Route path='CreateQuiz/:quizCode/addQuestion' element={<Questions />} />
       <Route path='CreateQuiz/:quizCode/addQuestion/new' element={<NewQuestion />} />
       <Route path='CreateQuiz/:quizCode/addQuestion/:id/edit' element={<QuestionEdit />} />
@@ -34,6 +40,10 @@ const router = createBrowserRouter(
       <Route path='QuizDisplay/:quizId' element={<QuizDisplay />} />
       <Route path='UserProfile' element={<UserProfile />} />
       <Route path='LogOut' element={<LogOut />} />
+      <Route path='QuizCard' element={< QuizCard />} />
+      <Route path='CreatedQuizes' element={<CreatedQuizes />} />
+      <Route path='JoinedQuizes' element={<JoinedQuizes />} />
+      <Route path='JoinedQuizes/results/:quizCode' element={<JoinedQuizResult />} />
       <Route path='*' element={<PageNotFound />} />
 
     </Route>
