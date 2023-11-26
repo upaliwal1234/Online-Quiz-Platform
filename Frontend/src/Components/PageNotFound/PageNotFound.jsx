@@ -1,9 +1,18 @@
 function PageNotFound() {
     return (
-        <div className='sm:min-h-screen flex justify-center bg-red-600'>
-            <div className='py-52 w-1/5'>
-                <h1 className='text-white font-bold text-sm sm:text-4xl text-left'>Error 404</h1>
-                <h1 className='text-white text-sm sm:text-2xl text-left'>Page Not Found</h1>
+        <div className="min-h-screen bg-red-600">
+            <div className="py-44 flex flex-col items-center">
+                <div className="text-gray-900 font-bold text-7xl">
+                    404
+                </div>
+
+                <div className="font-bold text-gray-300 text-3xl xl:text-7xl lg:text-6xl md:text-5xl mt-10">
+                    This page does not exist
+                </div>
+
+                <div className="text-white font-medium text-sm md:text-xl lg:text-2xl mt-8">
+                    The page you are looking for could not be found.
+                </div>
             </div>
         </div>
     )
