@@ -15,6 +15,7 @@ import Questions from './Components/CreateQuiz/Questions.jsx'
 import NewQuestion from './Components/CreateQuiz/NewQuestion.jsx'
 import UserProfile from './Components/userProfile/UserProfile.jsx'
 import LogOut from './Components/LogOut/LogOut.jsx'
+import PageNotFound from './Components/PageNotFound/PageNotFound.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -31,6 +32,8 @@ const router = createBrowserRouter(
       <Route path='QuizDisplay/:quizId' element={<QuizDisplay />} />
       <Route path='UserProfile' element={<UserProfile />} />
       <Route path='LogOut' element={<LogOut />} />
+      <Route path='*' element={<PageNotFound />} />
+
     </Route>
   )
 )
