@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { tokenCheck } from '../../helperToken';
 import axios from 'axios';
 import { ToastContainer, toast } from 'react-toastify';
 
 function JoinQuiz() {
+  const { quizCode: code } = useParams();
   const navigate = useNavigate()
   useEffect(() => {
     let response = tokenCheck();
@@ -12,14 +13,14 @@ function JoinQuiz() {
       navigate('/Login')
     }
     else {
-      navigate('/JoinQuiz');
+      navigate(`/JoinQuiz/${code}`);
     }
   }, [])
   const [quizCode, setQuizCode] = useState('');
 
   const handleJoinQuiz = async () => {
     try {
-      const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
+      const response = await axios.get(`http://localhost:5500/Quiz/${code}`);
       if (response.status == 200) {
         let quizId = response.data[0]._id;
         navigate(`/QuizDisplay/${quizId}`)
@@ -39,7 +40,7 @@ function JoinQuiz() {
               type="text"
               placeholder="Enter Quiz Code"
               className="border border-gray-400 rounded-md py-2 px-4 mr-2"
-              value={quizCode}
+              defaultValue={code == 'a' ? null : code}
               onChange={(e) => setQuizCode(e.target.value)}
             />
             <button
