@@ -84,7 +84,7 @@ function JoinedQuizResult() {
                                                     Accuracy
                                                 </th>
                                                 <td className="px-6 py-4">
-                                                    {((data.correctQues / data.ttlQues) * 100).toFixed(2)}
+                                                    {((data.correctQues / data.ttlQues) * 100).toFixed(2)}%
                                                 </td>
                                             </tr>
                                         </tbody>

@@ -2,7 +2,9 @@ const express = require('express');
 const Question = require('../model/Question');
 const router = express.Router(); //mini instance/application;
 const bodyParser = require('body-parser');
-const cors = require('cors')//to handle the different domains
+const cors = require('cors');//to handle the different domains
+const User = require('../model/User');
+const Quiz = require('../model/Quiz');
 
 
 router.post('/Question/new', async (req, res) => {
@@ -38,12 +40,30 @@ router.patch('/Question/:id/edit', async (req, res) => {
     }
 })
 
-router.delete('/Question/:id', async (req, res) => {
-    const { id } = req.params;
+router.delete('/Question/:id/:quizCode', async (req, res) => {
+    const { id, quizCode } = req.params;
     try {
         const question = await Question.findByIdAndDelete(id);
-        return res.status(200).json(question);
+        if (!question) {
+            return res.status(404).json({ message: "Question not found" });
+        }
+        let quiz = await Quiz.find({ quizCode: quizCode });
+        if (!quiz) {
+            return res.status(404).json({ message: "Quiz not found" });
+        }
+        const quesArray = quiz[0].questions;
+        const quesIndex = quesArray.indexOf(id);
+        if (quesIndex > -1) {
+            quesArray.splice(quesIndex, 1);
+        }
+        else {
+            return res.status(404).json({ message: "Question not found in quiz" });
+        }
+        quiz[0].questions = quesArray;
+        let response = await quiz[0].save();
+        return res.status(200).json(response);
     } catch (error) {
+        console.error(error);
         return res.status(500).json({ message: error });
     }
 })

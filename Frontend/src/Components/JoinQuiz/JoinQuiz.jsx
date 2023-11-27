@@ -18,13 +18,14 @@ function JoinQuiz() {
   const [quizCode, setQuizCode] = useState('');
 
   const handleJoinQuiz = async () => {
-    const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
-    let quizId = response.data[0]._id;
-    if (response) {
-      navigate(`/QuizDisplay/${quizId}`)
-    }
-    else {
-      toast.error("Wrong Quiz Code");
+    try {
+      const response = await axios.get(`http://localhost:5500/Quiz/${quizCode}`);
+      if (response.status == 200) {
+        let quizId = response.data[0]._id;
+        navigate(`/QuizDisplay/${quizId}`)
+      }
+    } catch (error) {
+      toast.error("Wrong Quiz Code, Quiz not found");
     }
   };
   return (

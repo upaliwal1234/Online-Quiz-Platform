@@ -7,14 +7,15 @@ import { Link } from 'react-router-dom';
 import { toast, ToastContainer } from 'react-toastify';
 
 function Questions() {
+    const [userId, setUserId] = useState();
     useEffect(() => {
         let response = tokenCheck();
         if (!response) {
             navigate('/Login')
         }
-        //     else {
-        //         navigate('/CreateQuiz');
-        //     }
+        else {
+            setUserId(response.id);
+        }
     }, [])
     const navigate = useNavigate();
 
@@ -49,7 +50,7 @@ function Questions() {
     const handleDelete = async (event, id) => {
         event.preventDefault();
         try {
-            const response = await axios.delete(`http://localhost:5500/Question/${id}`);
+            const response = await axios.delete(`http://localhost:5500/Question/${id}/${quizCode}`);
             if (response.status == 200) {
                 fetchQuizData();
                 toast.success("Question Deleted Successfully");
@@ -58,6 +59,7 @@ function Questions() {
                 toast.error("Error in deletion");
             }
         } catch (e) {
+            toast.error("Error in deletion");
             console.error(e);
         }
     }

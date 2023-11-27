@@ -66,12 +66,13 @@ router.get('/Quiz/:quizCode', async (req, res) => {
     try {
 
         const response = await Quiz.find({ "quizCode": `${quizCode}` }).populate('questions');
-        if (response) {
+        if (response.length != 0) {
             return res.status(200).json(response);
         }
+        return res.status(404).json({ message: "Quiz not found" });
     }
     catch {
-        return res.status(404).json({ message: 'Quiz not Found' });
+        return res.status(500).json({ message: 'Internal server error' });
     }
 })
 
