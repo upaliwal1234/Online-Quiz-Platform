@@ -40,7 +40,7 @@ function JoinQuiz() {
               type="text"
               placeholder="Enter Quiz Code"
               className="border border-gray-400 rounded-md py-2 px-4 mr-2"
-              defaultValue={code == 'a' ? null : code}
+              defaultValue={code == 'undefined' ? null : code}
               onChange={(e) => setQuizCode(e.target.value)}
             />
             <button
