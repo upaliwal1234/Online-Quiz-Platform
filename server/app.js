@@ -42,7 +42,8 @@ app.get('/questions', async (req, res) => {
 })
 
 
-const PORT = 5500;
+const PORT = process.env.PORT || 5500;
+console.log(PORT);
 app.listen(PORT, (err) => {
     console.log(`server is connected at port ${PORT}`);
 })
